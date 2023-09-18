@@ -13,5 +13,5 @@ const samePerson = person
 // console.log(samePerson)
 
 person.name = 'Rick'
-person.age = 90
+person.age === 78
 person['country'] = 'FR'
