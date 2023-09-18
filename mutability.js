@@ -10,7 +10,6 @@ Object.freeze(clone1)
 Object.freeze(clone2)
 
 const samePerson = person
-// console.log(samePerson)
 
 person.name = 'Rick'
 person.age = 78
