@@ -31,6 +31,3 @@ function dogYears(planet, age){
         default: return 0
     }
 }
-
-
-console.log(dogYears('earth', 1000000000))
