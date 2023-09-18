@@ -26,7 +26,7 @@ function dogYears(planet, age){
             years = ((age / 84.016846) / 31557600) * 7
                 return parseFloat(years.toFixed(2))
         case 'neptune':
-            years = ((age / 164,79132) / 31557600) * 7
+            years = ((age / 164.79132) / 31557600) * 7
             return parseFloat(years.toFixed(2))
         default: return 0
     }
