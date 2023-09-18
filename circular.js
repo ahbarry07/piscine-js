@@ -1,5 +1,6 @@
 
-let circular = {}
+let circular =  {}
+let stock = circular
 circular = {
-    circular: circular
+    circular: stock
 }
