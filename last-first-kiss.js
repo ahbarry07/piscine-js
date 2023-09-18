@@ -9,7 +9,7 @@ function last(str_or_arr){
 
 function kiss(str_or_arr){
     let array = []
-    array.push(str_or_arr[0], str_or_arr[str_or_arr.length-1])
+    array.push(str_or_arr[str_or_arr.length-1], str_or_arr[0])
 
     return array
 }
