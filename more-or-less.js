@@ -1,5 +1,5 @@
 
-const more = (number) => number+1 // cette fonction en argument number et retourne n+1
+const more = (number) => number+1 // cette fonction prend en argument number et retourne n+1
 
 const less = (number) => number-1 
 
