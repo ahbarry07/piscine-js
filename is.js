@@ -5,7 +5,7 @@ is.num = function (num){
 }
 
 is.nan = function (nan){
-    return (typeof num) !== "number"
+    return (typeof nan) !== "number"
 }
 
 is.str = function (str){
