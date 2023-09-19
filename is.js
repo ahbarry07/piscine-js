@@ -5,7 +5,7 @@ is.num = function (num){
 }
 
 is.nan = function (nan){
-    return (typeof nan) !== "number"
+    return Number.isNaN(nan)
 }
 
 is.str = function (str){
@@ -43,3 +43,4 @@ is.truthy = function (truth){
 is.falsy = function (fals){
     return (typeof fals) === "falsy"
 }
+
