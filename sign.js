@@ -4,8 +4,10 @@ function sign(number){
         return 1
     }else if (number < 1){
         return -1
+    }else if (number === 0){
+
+        return 0
     }
-    return 0
 }
 
 function sameSign(num1, num2){
