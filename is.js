@@ -29,7 +29,7 @@ is.arr = function (array){
 }
 
 is.obj = function (objet){
-    return objet instanceof Object
+    return objet instanceof Object || objet === null
 }
 
 is.fun = function (func){
@@ -44,4 +44,4 @@ is.falsy = function (fals){
     return (typeof fals) === "falsy"
 }
 
-console.log(is.obj({}))
+console.log(is.obj(null))
