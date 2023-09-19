@@ -44,5 +44,8 @@ is.truthy = function (truth){
 }
 
 is.falsy = function (fals){
+    if ((typeof fals) === "number" || Number.isNaN(fals) || fals===undefined || fals==0 || (typeof num) === "number"){
+        return false
+    }
     return (typeof fals) === "falsy"
 }
