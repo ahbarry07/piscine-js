@@ -47,7 +47,7 @@ is.truthy = function (truth){
 }
 
 is.falsy = function (fals){
-    if (fals){
+    if (!fals){
         return true
     }
     return false
