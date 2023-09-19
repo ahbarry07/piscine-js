@@ -1,11 +1,14 @@
 
 function getAcceleration(data){
 
-    if (data.length === undefined || (Number.isNaN(data.f)) || (Number.isNaN(data.m)) || data.m === 0){
+    if (data == {} || (Number.isNaN(data.f)) || (Number.isNaN(data.m)) || data.m === 0){
         return "impossible"
     }
    
-    return data.f/data.m
+    let acc = data.f/data.m
+    if (Number.isNaN(acc)){
+        return "impossible"
+    }
+    return  acc
 }
 
-console.log(getAcceleration({}))
