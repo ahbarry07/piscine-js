@@ -40,12 +40,15 @@ is.fun = function (func){
 }
 
 is.truthy = function (truth){
-    return (typeof truth) === "truthy"
+    if (truth){
+        return true
+    }
+    return false
 }
 
 is.falsy = function (fals){
-    if ((typeof fals) === "number" || Number.isNaN(fals) || fals===undefined || fals==0 || (typeof num) === "number"){
-        return false
+    if (fals){
+        return true
     }
-    return (typeof fals) === "falsy"
+    return false
 }
