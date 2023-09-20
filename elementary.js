@@ -33,9 +33,9 @@ function divmodulo(num1, num2){
              res = res - num2
              count = count +1
         }while(res >= num2)
-     
-       divmod.push(count, res)
-       return divmod
+        res = parseFloat('-' + res.toString())
+        divmod.push(count, res)
+        return divmod
     }
     let res = num1
     while (res >= num2){
