@@ -77,7 +77,7 @@ function multiply(num1, num2){
         for(let i=1; i<num1; i++){
             result = result + num2
         }
-        return parseFloat("-"+result.toString())
+        return result
     }
 
     let result = num2
