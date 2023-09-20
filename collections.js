@@ -42,8 +42,8 @@ const mapToObj = function(mapValues){
 //from Object to Array
 var objToArr = function(obj){
     let array = []
-    for(let value of obj){
-        array.push(value)
+    for(let i in obj){
+        array.push(obj[i])
     }
     return array
 }
