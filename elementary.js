@@ -1,5 +1,5 @@
 function divmodulo(num1, num2){
-    let count = 1
+    let count = 0
     let divmod = []
     if (num1 === 0){
         divmod.push(0, num2)
@@ -12,7 +12,7 @@ function divmodulo(num1, num2){
         do {
              res = res - num2
              count = count +1
-        }while(res > num2)
+        }while(res >= num2)
      
        count = parseFloat('-' + count.toString())
        res = parseFloat('-' + res.toString())
@@ -24,7 +24,7 @@ function divmodulo(num1, num2){
         do {
              res = res - num2
              count = count +1
-        }while(res > num2)
+        }while(res >= num2)
      
        count = parseFloat('-' + count.toString())
        res = parseFloat('-' + res.toString())
@@ -36,20 +36,20 @@ function divmodulo(num1, num2){
         do {
              res = res - num2
              count = count +1
-        }while(res > num2)
+        }while(res >= num2)
      
        divmod.push(count, res)
        return divmod
     }
 
     let res = num1
-   do {
-        res = res - num2
-        count = count +1
-   }while(res>num2)
+    do {
+            res = res - num2
+            count = count +1
+    }while(res >= num2)
 
-   divmod.push(count, res)
-   return divmod
+    divmod.push(count, res)
+    return divmod
 }
 
 function multiply(num1, num2){
@@ -97,4 +97,3 @@ function divide(num1, num2){
 function modulo(num1, num2){
    return divmodulo(num1, num2)[1]
 }
-
