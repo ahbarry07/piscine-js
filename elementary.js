@@ -4,6 +4,9 @@ function divmodulo(num1, num2){
     if (num1 === 0){
         divmod.push(0, num2)
         return divmod
+    }else if (num1 < num2){
+        divmod.push(0, num1)
+        return divmod
     }else if (num1 < 0 && num2 > 0){
         let res = parseFloat(num1.toString().slice(1))
         do {
