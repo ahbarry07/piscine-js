@@ -1,13 +1,9 @@
-
 const isPositive = (number) => number > 0
 
+//Valeur absolue
 function abs(number){
     if (number >= 0){
         return number
-    }else{
-        return parseFloat(number.toString().slice(1))
     }
+    return parseFloat(number.toString().slice(1))
 }
-
-
-console.log(abs(-34.4))
