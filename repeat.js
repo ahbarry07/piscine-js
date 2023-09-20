@@ -1,8 +1,8 @@
 
 function repeat(str, num){
-    let repeatStr = str
-    for (let i=1; i< num; i++){
-        repeatStr = repeatStr + " " + str
+    let repeatStr = ""
+    for (let i=0; i< num; i++){
+        repeatStr = repeatStr + str
     }
     return repeatStr
 }
