@@ -24,7 +24,6 @@ function divmodulo(num1, num2){
         }while(res >= num2)
      
        count = parseFloat('-' + count.toString())
-       res = parseFloat('-' + res.toString())
        divmod.push(count, res)
        return divmod
     }else if (num1 < 0 && num2 < 0){
