@@ -52,7 +52,9 @@ var objToArr = function(obj){
 const objToMap = function(obj){
     let map = new Map()
     for(let key in obj){
-        map[key] = obj[key]
+       if (obj.hasOwnProperty(key)){
+            map.set(key, obj[key])
+       }
     }
     return map
 } 
