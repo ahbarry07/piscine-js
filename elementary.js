@@ -4,9 +4,6 @@ function divmodulo(num1, num2){
     if (num1 === 0){
         divmod.push(0, num2)
         return divmod
-    }else if (num1 < num2){
-        divmod.push(0, num1)
-        return divmod
     }else if (num1 < 0 && num2 > 0){
         let res = parseFloat(num1.toString().slice(1))
         do {
@@ -41,13 +38,11 @@ function divmodulo(num1, num2){
        divmod.push(count, res)
        return divmod
     }
-
     let res = num1
-    do {
-            res = res - num2
-            count = count +1
-    }while(res >= num2)
-
+    while (res >= num2){
+        count++
+        res = res - num2
+    }
     divmod.push(count, res)
     return divmod
 }
@@ -97,3 +92,5 @@ function divide(num1, num2){
 function modulo(num1, num2){
    return divmodulo(num1, num2)[1]
 }
+
+console.log(divide(3, 22))
