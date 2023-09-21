@@ -1,12 +1,7 @@
 
 function slice(value, debut){
 
-    let fin = 0
-    if (arguments.length === 2){
-        fin = value.length
-    }else{
-        fin = parseFloat(arguments[2])
-    }
+    let fin = arguments.length === 2 ? value.length : parseFloat(arguments[2])
 
     if ((typeof value) === "string"){
         let str = ""
