@@ -10,13 +10,13 @@ function slice(value, debut){
 
     if ((typeof value) === "string"){
         let str = ""
-        for(i = debut; i < fin; i++){
+        for(let i = debut; i < fin; i++){
             str = str + value[i]
         }
         return str
     }
     let array = []
-    for(i = debut; i < fin; i++){
+    for(let i = debut; i < fin; i++){
         array.push(value[i])
     }
     return array
