@@ -6,7 +6,7 @@ function slice(value, debut){
     if ((typeof value) === "string"){
 
         let str = ""
-        if (debut < 0){
+        if (debut < 0 && fin >= 0){
             debut = value.length - Math.abs(debut)
             for(let i = debut; i < fin; i++){
                 str = str + value[i]
@@ -19,7 +19,10 @@ function slice(value, debut){
             }
             return str
         }
-
+        if (fin < 0){
+            fin = value.length - Math.abs(fin)
+        }
+        debut = Math.abs(debut)
         for(let i = debut; i < fin; i++){
             str = str + value[i]
         }
@@ -27,7 +30,7 @@ function slice(value, debut){
     }
 
     let array = []
-    if (debut < 0){
+    if (debut < 0 && fin >= 0){
         debut = value.length - Math.abs(debut)
         for(let i = debut; i < fin; i++){
             array.push(value[i])
@@ -40,9 +43,13 @@ function slice(value, debut){
         }
         return array
     }
-
+    if (fin < 0){
+        fin = value.length - Math.abs(fin)
+    }
+    debut = Math.abs(debut)
     for(let i = debut; i < fin; i++){
         array.push(value[i])
     }
     return array
 }
+
