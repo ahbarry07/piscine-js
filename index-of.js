@@ -22,7 +22,7 @@ function lastIndexOf(array, occ){
         ind = parseFloat(arguments[2])
     }
 
-    for(let i = array.length-1; i >= ind; i--){
+    for(let i = ind; i >= 0; i--){
         if (array[i] === occ){
            return i
         }
@@ -46,4 +46,4 @@ function includes(array, occ){
     return false
 }
 
-console.log(lastIndexOf([1, 2, 3, 4, 5, 4, 3, 2, 1], 2))
+console.log(lastIndexOf(['t', 0, 0, 't'], 't', 2))
