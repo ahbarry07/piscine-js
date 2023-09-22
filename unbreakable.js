@@ -4,17 +4,19 @@ function split(str, sep){
     let tab = []
     let seq = ""
     for(let i = 0; i < str.length; i++){
-        if (str[i] === sep){
+        
+        if (str.slice(i, i+sep.length) === sep){
+            console.log(sep)
             tab.push(seq)
             seq = ""
-            i++
+            i += sep.length 
         }
         seq = seq + str[i]
         if (i === str.length-1){
             tab.push(seq)
         }
     }
-
+   
     return tab
 }
 
