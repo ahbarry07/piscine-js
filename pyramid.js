@@ -17,6 +17,6 @@ function pyramid(elem, size){
         }
     }
 
-    console.log(str)
+   return str
 }
 
