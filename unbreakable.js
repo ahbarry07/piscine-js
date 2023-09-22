@@ -7,15 +7,13 @@ function split(str, sep){
         return tab
     }
     for(let i = 0; i < str.length; i++){
-        
         if (str.slice(i, i+sep.length) === sep){
             tab.push(seq)
             seq = ""
             i += sep.length - 1
         }else{
             seq += str[i]
-        }
-       
+        } 
     }
     tab.push(seq)
    
