@@ -26,6 +26,7 @@ function split(str, sep){
         return tab
     }
     if (str.length === 0){
+        tab.push("")
         return tab
     }
     for(let i = 0; i < str.length; i++){
@@ -53,4 +54,4 @@ function join(array, sep){
     return str
 }
 
-console.log(split("raid",''))
+console.log(split('', 'Riad'))
