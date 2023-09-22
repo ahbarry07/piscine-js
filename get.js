@@ -1,2 +1,2 @@
 
-const get = (src, path) => src.nested.key
+const get = (src, path) => src.path
