@@ -14,5 +14,5 @@ function triangle(elem, heigth){
         }
         j = 1  
     }
-    console.log(str)
+   return str
 }
