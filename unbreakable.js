@@ -33,6 +33,3 @@ function join(array, sep){
     return str
 }
 
-let arr = split('', '')
-console.log(arr)
-// console.log(join(arr, "-"))
