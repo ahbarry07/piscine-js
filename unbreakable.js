@@ -3,6 +3,28 @@ function split(str, sep){
 
     let tab = []
     let seq = ""
+    if (sep ===""){
+        let newstr = ""
+        for(let i=0; i < str.length; i++){
+            newstr+=str[i]
+            if (i< str.length-1){
+                newstr+="#"
+            }
+        }
+        sep = "#"
+        for(let i = 0; i < newstr.length; i++){
+            if (newstr[i] === sep){
+                tab.push(seq)
+                seq = ""
+                i += sep.length - 1
+            }else{
+                seq += newstr[i]
+            } 
+        }
+        tab.push(seq)
+       
+        return tab
+    }
     if (str.length === 0){
         return tab
     }
@@ -31,3 +53,4 @@ function join(array, sep){
     return str
 }
 
+console.log(split("raid",''))
