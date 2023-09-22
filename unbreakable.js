@@ -6,16 +6,15 @@ function split(str, sep){
     for(let i = 0; i < str.length; i++){
         
         if (str.slice(i, i+sep.length) === sep){
-            console.log(sep)
             tab.push(seq)
             seq = ""
             i += sep.length 
+        }else{
+            seq += str[i]
         }
-        seq = seq + str[i]
-        if (i === str.length-1){
-            tab.push(seq)
-        }
+       
     }
+    tab.push(seq)
    
     return tab
 }
