@@ -17,6 +17,3 @@ function triangle(elem, heigth){
     }
     console.log(str)
 }
-
-
-(triangle("*", 5))
