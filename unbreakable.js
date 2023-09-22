@@ -8,7 +8,7 @@ function split(str, sep){
         if (str.slice(i, i+sep.length) === sep){
             tab.push(seq)
             seq = ""
-            i += sep.length 
+            i += sep.length - 1
         }else{
             seq += str[i]
         }
@@ -30,3 +30,6 @@ function join(array, sep){
     return str
 }
 
+let arr = split(',', ',')
+console.log(arr)
+// console.log(join(arr, "-"))
