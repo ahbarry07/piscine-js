@@ -3,6 +3,9 @@ function split(str, sep){
 
     let tab = []
     let seq = ""
+    if (str.length === 0){
+        return tab
+    }
     for(let i = 0; i < str.length; i++){
         
         if (str.slice(i, i+sep.length) === sep){
@@ -30,6 +33,6 @@ function join(array, sep){
     return str
 }
 
-let arr = split(',', ',')
+let arr = split('', '')
 console.log(arr)
 // console.log(join(arr, "-"))
