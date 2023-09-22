@@ -1,2 +1,13 @@
 
-const get = (src, path) => src.path
+function get(src, path){
+
+    let key = path.split('.')
+    for(let ref of key){
+        if (src.hasOwnProperty(ref)){
+            src = src[ref]
+        }
+    }
+    return src
+}
+
+    
