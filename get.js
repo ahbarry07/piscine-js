@@ -6,7 +6,7 @@ function get(src, path){
         if (src.hasOwnProperty(ref)){
             src = src[ref]
         }else{
-            return null
+            return undefined
         }
     }
     return src
