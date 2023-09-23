@@ -1,10 +1,19 @@
 
 function letterSpaceNumber(str){
 
-    let regesp = /[\w\s\d]/g //le caractere doit contenir une chaine alphaNumerique et des entiers
-    let found = (str.match(regesp))
-
-    return found
+    const regex =  /[a-zA-Z]\s\d(?![a-zA-Z\d])/g;
+    
+    // Use the regex pattern to find all matches in the input string
+    const matches = str.match(regex);
+  
+    if (!matches) {
+      return []; // Return an empty array if no matches are found
+    }
+  
+    // Return the array of matches
+    return matches; 
 }
 
-console.log(letterSpaceNumber("hElRoR WW 17"))
+
+
+  
