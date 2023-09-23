@@ -1,14 +1,9 @@
 
 function vowelDots(str){
 
-    const vowels = /[aeiouAEIOU]/g
-    if( str.match(vowels) !== null){
+    let vowels = /[aeiouAEIOU]/g
 
-        const result = str.replace(vowels, (match) => match + '.')
-        return result
-    }
-
-    return str
+    const result = str.replace(vowels, (match) => match + '.')
+    return result
+   
 }
-
-console.log(vowelDots('c'))
