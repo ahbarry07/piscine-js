@@ -5,7 +5,7 @@ function divmodulo(num1, num2){
         divmod.push(0, num2)
         return divmod
     }else if (num1 < 0 && num2 > 0){
-        let res = parseFloat(num1.toString().slice(1))
+        let res = Math.abs(num1)
         do {
              res = res - num2
              count = count +1
@@ -17,7 +17,7 @@ function divmodulo(num1, num2){
        return divmod
     }else if (num2 < 0 && num1 > 0){
         let res = num1
-        num2 = parseFloat(num2.toString().slice(1))
+        num2 = Math.abs(num2)
         do {
              res = res - num2
              count = count +1
@@ -27,8 +27,8 @@ function divmodulo(num1, num2){
        divmod.push(count, res)
        return divmod
     }else if (num1 < 0 && num2 < 0){
-        let res = parseFloat(num1.toString().slice(1))
-        num2 = parseFloat(num2.toString().slice(1))
+        let res = Math.abs(num1)
+        num2 = Math.abs(num2)
         do {
              res = res - num2
              count = count +1
@@ -52,14 +52,14 @@ function multiply(num1, num2){
         return 0
     }else if (num1 < 0 && num2 > 0){//Si le premier nombre est negatif
         let result = num2
-        num1 = parseFloat(num1.toString().slice(1))
+        num1 = Math.abs(num1)
         for(let i=1; i<num1; i++){
             result = result + num2
         }
         result = parseFloat("-"+result.toString())
         return result
     }else if (num2 < 0 && num1 > 0){//Si le deuxieme nombre est negatif
-        num2 = parseFloat(num2.toString().slice(1))
+        num2 = Math.abs(num2)
         let result = num2
         for(let i=1; i<num1; i++){
             result = result + num2
@@ -67,8 +67,8 @@ function multiply(num1, num2){
         result = parseFloat("-"+result.toString())
         return result
     }else if (num1 < 0 && num2 < 0){
-        num1 = parseFloat(num1.toString().slice(1))
-        num2 = parseFloat(num2.toString().slice(1))
+        num1 = Math.abs(num1)
+        num2 = Math.abs(num2)
 
         let result = num2
         for(let i=1; i<num1; i++){

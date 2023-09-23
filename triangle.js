@@ -16,3 +16,5 @@ function triangle(elem, heigth){
     }
    return str
 }
+
+console.log(triangle('*', 5))

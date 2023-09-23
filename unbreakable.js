@@ -35,4 +35,4 @@ function join(array, sep){
     return str
 }
 
-console.log(split('', 'Riad'))
+console.log(split(',', ','))
