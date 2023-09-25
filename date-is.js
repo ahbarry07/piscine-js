@@ -1,22 +1,12 @@
 
-const  isValid = (date) => !isNaN(new Date(date))
+const  isValid = (date) => !isNaN((date)) || (date instanceof Date)
 
 const isAfter = (date1, date2) => (new Date(date1) > new Date(date2))
 
 const isBefore = (date1, date2) => (new Date (date1) < new Date(date2))
 
-function isFuture(date){
+const isFuture = (date) => Date.now() > new Date(date)
 
-    dateDay = new Date()
+const  isPast = (date) => Date.now() < new Date(date) 
 
-    return new Date(date) > dateDay
-}
-
-function isPast(date){
-
-    dateDay = new Date()
-
-    return new Date(date) < dateDay
-}
-
-console.log(isValid('2023-09-25'))
+console.log(isValid(1488370835081))
