@@ -20,15 +20,4 @@ function addWeek(date) {
 }
 
 
-function timeTravel(Obj){
-
-    // let date = new Date(Obj)
-    Obj.hour.setHours()
-    Obj.minute.setMinutes()
-    Obj.second.setSeconds
-
-    let date = new Date (Obj)
-    return date
-}
-
-console.log(addWeek(new Date('0001-01-02')))
+const  timeTravel = (Obj) => Obj.date.setHours(Obj.hour, Obj.minute, Obj.second)
