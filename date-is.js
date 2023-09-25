@@ -7,8 +7,8 @@ const isAfter = (date1, date2) => (new Date(date1) > new Date(date2))
 
 const isBefore = (date1, date2) => (new Date (date1) < new Date(date2))
 
-const isFuture = (date) => Date.now() > new Date(date)
+const isFuture = (date) => Date.now() < new Date(date).getTime()
 
-const  isPast = (date) => Date.now() < new Date(date) 
+const  isPast = (date) => Date.now() > new Date(date).getTime()
 
-console.log(isValid(new Date('1995-12-17T03:24:00').getTime()))
+console.log(isFuture('2013-01-01'))
