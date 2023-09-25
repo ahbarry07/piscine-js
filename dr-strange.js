@@ -24,5 +24,6 @@ function  timeTravel(Obj) {
 
     Obj.date.setHours(Obj.hour, Obj.minute, Obj.second)
 
-    return Obj
+    return Obj.date
 }
+
