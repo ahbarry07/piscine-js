@@ -3,7 +3,7 @@ const dateRef = new Date('0001-01-01')
 function addWeek(date) {
  
     const daysOfWeek = new Map()
-    let days = ['Monday', 'Thuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'secondMonday', 'secondThuesday', 'secondWednesday', 'secondThursday', 'secondFriday', 'secondSaturday', 'secondSunday']
+    let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'secondMonday', 'secondTuesday', 'secondWednesday', 'secondThursday', 'secondFriday', 'secondSaturday', 'secondSunday']
     for(let i = 0; i <= days.length-1; i++){
         daysOfWeek.set(i, days[i])
     }
@@ -30,3 +30,5 @@ function timeTravel(Obj){
     let date = new Date (Obj)
     return date
 }
+
+console.log(addWeek(new Date('0001-01-02')))
