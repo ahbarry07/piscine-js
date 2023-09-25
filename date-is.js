@@ -1,5 +1,5 @@
 
-const  isValid = (date) => isNaN(new Date(date))
+const  isValid = (date) => !isNaN(new Date(date))
 
 const isAfter = (date1, date2) => (new Date(date1) > new Date(date2))
 
@@ -18,3 +18,5 @@ function isPast(date){
 
     return new Date(date) < dateDay
 }
+
+console.log(isValid('2023-09-25'))
