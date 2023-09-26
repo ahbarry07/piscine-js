@@ -14,7 +14,7 @@ function dayOfTheYear(date){
     let numberOfday = Math.floor(timeDifference / (24*60*60*1000))
 
 
-    return numberOfday + 1
+    return (numberOfday + 1).toString()
 }
 
 console.log(dayOfTheYear(new Date('0001-01-01')))
