@@ -10,11 +10,10 @@ function dayOfTheYear(date){
     let padStart = year.toString().padStart(4, '0')
     let origineDate = (padStart+'-01-01')
     let origine = new Date(origineDate)
-    let numberOfday = (date-origine)/(24*60*60*1000)
+    const timeDifference = date - origine;
+    let numberOfday = Math.floor(timeDifference / (24*60*60*1000))
 
-    // if (numberOfday===0){
-    //     return 1
-    // }
-    return Math.trunc(numberOfday) + 1
+
+    return numberOfday + 1
 }
 
