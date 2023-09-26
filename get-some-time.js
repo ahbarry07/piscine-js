@@ -31,18 +31,12 @@ function checkYear(yearChecked, anneeObt){
     if (yearChecked < 100){
         anneeObt.setFullYear(yearChecked)
     }
-    let dateFormat = new Intl.DateTimeFormat('fr-FR').format(anneeObt)
-    let split = dateFormat.split('/')
-    if (split[1].length < 2){
-        split[1] = '0'.toString() + split[1]
-    }
-    if (split[0].length < 2){
-        split[0] = '0'.toString() + split[0]
-    }
-    split = split.join('/')
-    let lastFormat = split.replace(regex, '-')
     
-    return lastFormat
+    const day = String(anneeObt.getDate()).padStart(2, '0');
+    const month = String(anneeObt.getMonth() + 1).padStart(2, '0');
+    const formattedDate = `${day}-${month}-${yearChecked}`;
+
+    return formattedDate
 }
 
 console.log(firstDayWeek(52, '1000'))
