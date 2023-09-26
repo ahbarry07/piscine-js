@@ -13,5 +13,5 @@ const isLeapYear = (date) =>{
 
 const isLastDayOfMonth = (date) =>  (date.getDate() === 31 && (date.getMonth() === 0 || date.getMonth()%2 === 0) ? true 
     : date.getDate() === 30 && (date.getMonth()%2 !== 0)) ? true 
-    : date.getMonth() === 1 && (date.getdate() === 28 || date.getdate() === 29) ? true : false
+    : date.getMonth() === 1 && (date.getDate() === 28 || date.getDate() === 29) ? true : false
 
