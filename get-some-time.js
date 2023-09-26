@@ -33,12 +33,15 @@ function checkYear(yearChecked, anneeObt){
     }
     let dateFormat = new Intl.DateTimeFormat('fr-FR').format(anneeObt)
     let lastFormat = dateFormat.replace(regex, '-')
-    while (lastFormat.slice(6).length < 4){
+    if(lastFormat.slice(1,2).length < 2){
         lastFormat = lastFormat.split('-')
-        lastFormat[2]='0'+lastFormat[2]
+        lastFormat[0]='0'+lastFormat[0]
+        lastFormat = lastFormat.join('-')
+    }
+    if(lastFormat.slice(4,5).length < 2){
+        lastFormat = lastFormat.split('-')
+        lastFormat[1]='0'+lastFormat[1]
         lastFormat = lastFormat.join('-')
     }
     return lastFormat
 }
-
-console.log(firstDayWeek(1, '1000'))
