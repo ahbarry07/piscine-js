@@ -8,5 +8,8 @@ function countLeapYears(date){
             count++
         }
     }
-  return count-1
+    if (count !== 0){
+        return count-1
+    }
+    return count
 }
