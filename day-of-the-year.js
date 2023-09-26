@@ -6,7 +6,7 @@ function dayOfTheYear(date){
     if (year < 1000){
         year += 1
     }
-   
+    
     let padStart = year.toString().padStart(4, '0')
     let origineDate = (padStart+'-01-01')
     let origine = new Date(origineDate)
@@ -17,4 +17,4 @@ function dayOfTheYear(date){
     return numberOfday + 1
 }
 
-console.log("hello")
+console.log(dayOfTheYear(new Date('0001-01-01')))
