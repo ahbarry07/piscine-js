@@ -3,7 +3,7 @@
 function dayOfTheYear(date){
     
     let year = date.getFullYear()
-    if (date,getTime()===new Date(year, 0, 1)){return 1}
+    if (date.getTime()=== (new Date(year, 0, 1)).getTime()){return 1}
     let padStart = year.toString().padStart(4, '0')
     let origineDate = (padStart+'-01-01')
     let origine = new Date(origineDate)
