@@ -42,5 +42,5 @@ function checkYear(yearChecked, anneeObt){
     split = split.join('/')
     let lastFormat = split.replace(regex, '-')
     
-    return lastFormat.join('')
+    return lastFormat
 }
