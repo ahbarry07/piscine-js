@@ -34,9 +34,12 @@ function checkYear(yearChecked, anneeObt){
     
     const day = String(anneeObt.getDate()).padStart(2, '0');
     const month = String(anneeObt.getMonth() + 1).padStart(2, '0');
+    while(yearChecked.toString().length < 4){
+        yearChecked = '0'.toString() + yearChecked
+    }
     const formattedDate = `${day}-${month}-${yearChecked}`;
 
     return formattedDate
 }
 
-console.log(firstDayWeek(52, '1000'))
+console.log(firstDayWeek(2, '0001'))
