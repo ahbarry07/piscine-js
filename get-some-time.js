@@ -32,13 +32,14 @@ function checkYear(yearChecked, anneeObt){
         anneeObt.setFullYear(yearChecked)
     }
     let dateFormat = new Intl.DateTimeFormat('fr-FR').format(anneeObt)
-    let lastFormat = ""
-    for(let value of dateFormat){
-        lastFormat += value
-        if (value === '/'){
-            lastFormat += '-'
-        }
-    }
+    // let lastFormat = ""
+    // for(let value of dateFormat){
+    //     lastFormat += value
+    //     if (value === '/'){
+    //         lastFormat += '-'
+    //     }
+    // }
+    dateFormat = dateFormat.replace('/', '-').repeat(2)
     
-    return lastFormat
+    return dateFormat
 }
