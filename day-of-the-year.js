@@ -17,3 +17,4 @@ function dayOfTheYear(date){
     return numberOfday + 1
 }
 
+console.log("hello")
