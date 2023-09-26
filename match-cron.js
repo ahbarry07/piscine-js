@@ -12,7 +12,7 @@ function matchCron(cron, date){
     if (!(cronDay === '*' || parseInt(cronDay) === date.getDay())){
         return false
     }
-    if (!(cronMonth === '*' || parseInt(cronMonth) === date.getMonth())){
+    if (!(cronMonth === '*' || parseInt(cronMonth) === date.getMonth()+1)){
         return false
     }
     if (!(cronDayOfWeek === '*' || parseInt(cronDayOfWeek) === date.getDate())){
