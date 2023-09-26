@@ -39,8 +39,11 @@ function checkYear(yearChecked, anneeObt){
     if (split[1].length < 2){
         split[1] = '0'.toString() + split[1]
     }
+    split[0], split[1] = split[1], split[0]
     split = split.join('/')
     let lastFormat = split.replace(regex, '-')
     
     return lastFormat
 }
+
+console.log(firstDayWeek(52, '1000'))
