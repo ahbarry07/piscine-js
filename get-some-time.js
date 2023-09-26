@@ -27,18 +27,20 @@ function firstDayWeek(week, year){
 
 function checkYear(yearChecked, anneeObt){
 
-    const regex = /\/|,/g
+    const regex = /\/|\,/g
     if (yearChecked < 100){
         anneeObt.setFullYear(yearChecked)
     }
     let dateFormat = new Intl.DateTimeFormat('fr-FR').format(anneeObt)
-    let lastFormat = []
-    for(let value of dateFormat){
-        lastFormat.push(value)
-        if (value === '/'){
-            lastFormat.push('-')
-        }
+    let split = dateFormat.split('/')
+    if (split[0].length < 2){
+        split[0] = '0'.toString() + split[0]
     }
+    if (split[1].length < 2){
+        split[1] = '0'.toString() + split[1]
+    }
+    split = split.join('/')
+    let lastFormat = split.replace(regex, '-')
     
     return lastFormat.join('')
 }
