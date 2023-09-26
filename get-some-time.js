@@ -5,7 +5,7 @@ function firstDayWeek(week, year){
     let annee = new Date(year, 0, 1)
 	let jour = annee.getDay()
     if (week === 1 && jour !==1){
-        return checkYear(year, annee)
+        return formatDate(year, annee)
     }
     let count = 0
     if (jour > 1){
@@ -21,19 +21,24 @@ function firstDayWeek(week, year){
     }
     let newDat = ((week-1)*7)-count
     annee.setDate(annee.getDate() + newDat)
-    return checkYear(year, annee)
+    return formatDate(year, annee)
     
 }
 
-function checkYear(yearChecked, anneeObt){
+function formatDate(yearChecked, anneeObt){
 
-    const regex = /\/|\,/g
     if (yearChecked < 100){
         anneeObt.setFullYear(yearChecked)
     }
-    
-    const day = String(anneeObt.getDate()).padStart(2, '0');
+    let day = String(anneeObt.getDate()).padStart(2, '0');
     const month = String(anneeObt.getMonth() + 1).padStart(2, '0');
+    if (yearChecked < 100){
+        day = parseInt(day)
+        day += 1
+        if (day.toString().length<2){
+            day = '0'.toString() + day.toString()
+        }
+    }
     while(yearChecked.toString().length < 4){
         yearChecked = '0'.toString() + yearChecked
     }
@@ -42,4 +47,3 @@ function checkYear(yearChecked, anneeObt){
     return formattedDate
 }
 
-console.log(firstDayWeek(2, '0001'))
