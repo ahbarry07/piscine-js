@@ -9,13 +9,13 @@ function matchCron(cron, date){
     if (!(cronHour === '*' || parseInt(cronHour) === date.getHours())){
         return false
     }
-    if (!(cronDay === '*' || parseInt(cronDay) === date.getDay())){
+    if (!(cronDay === '*' || parseInt(cronDay) === date.getDate())){
         return false
     }
     if (!(cronMonth === '*' || parseInt(cronMonth) === date.getMonth()+1)){
         return false
     }
-    if (!(cronDayOfWeek === '*' || parseInt(cronDayOfWeek) === date.getDate())){
+    if (!(cronDayOfWeek === '*' || parseInt(cronDayOfWeek) === date.getDay())){
         return false
     }
 
