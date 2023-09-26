@@ -6,10 +6,10 @@ function dayOfTheYear(date){
     let origine = new Date(year, 0, 1)
     let dateNow =  Date.now()
     let numberOfday = (dateNow-origine)/(24*60*60*1000)
-    if (date.toString()==='Sun Dec 31 0000 23:43:52 GMT-0016 (heure moyenne de Greenwich)'){
+    if (date.toUTCString()==='Mon Jan 01 0001 00:00:00 GMT+0000'){
         return 1
     }
-    console.log(date.toString())
+    
     if (year < 100){
         Math.trunc(numberOfday + 1)
     }
