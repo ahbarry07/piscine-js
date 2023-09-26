@@ -27,7 +27,7 @@ function firstDayWeek(week, year){
 
 function checkYear(yearChecked, anneeObt){
 
-    const regex = /\//g
+    const regex = /\/|,/g
     if (yearChecked < 100){
         anneeObt.setFullYear(yearChecked)
     }
@@ -40,5 +40,6 @@ function checkYear(yearChecked, anneeObt){
     if(lastFormat[1].length < 2){
         lastFormat[1]='0'+lastFormat[1]
     }
+    lastFormat = dateFormat.replace(regex, '-')
     return lastFormat
 }
