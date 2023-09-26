@@ -3,7 +3,6 @@ function firstDayWeek(week, year){
    
     year = parseInt(year)
     let annee = new Date(year, 0, 1)
-    date = annee.getFullYear()
 	let jour = annee.getDay()
     if (week === 1 && jour !==1){
         return checkYear(year, annee)
@@ -41,3 +40,5 @@ function checkYear(yearChecked, anneeObt){
     }
     return lastFormat
 }
+
+console.log(firstDayWeek(1, '1000'))
