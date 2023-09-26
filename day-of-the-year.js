@@ -3,12 +3,17 @@
 function dayOfTheYear(date){
     
     let year = date.getFullYear()
-    let origine = new Date(year, 0, 1)
+    if (year < 1000){
+        year += 1
+    }
+   
+    let padStart = year.toString().padStart(4, '0')
+    let origineDate = (padStart+'-01-01')
+    let origine = new Date(origineDate)
     let numberOfday = (date-origine)/(24*60*60*1000)
-    if (date.toUTCString()==='Mon Jan 01 0001 00:00:00 GMT+0000'){
+    if (Math.round(numberOfday) === 0){
         return 1
     }
-    
     return Math.round(numberOfday)
 }
 
