@@ -33,13 +33,12 @@ function checkYear(yearChecked, anneeObt){
     }
     let dateFormat = new Intl.DateTimeFormat('fr-FR').format(anneeObt)
     let split = dateFormat.split('/')
-    if (split[0].length < 2){
-        split[0] = '0'.toString() + split[0]
-    }
     if (split[1].length < 2){
         split[1] = '0'.toString() + split[1]
     }
-    split[0], split[1] = split[1], split[0]
+    if (split[0].length < 2){
+        split[0] = '0'.toString() + split[0]
+    }
     split = split.join('/')
     let lastFormat = split.replace(regex, '-')
     
