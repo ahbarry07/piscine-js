@@ -15,6 +15,6 @@ function dayOfTheYear(date){
     // if (numberOfday===0){
     //     return 1
     // }
-    return Math.round(numberOfday) + 1
+    return Math.trunc(numberOfday) + 1
 }
 
