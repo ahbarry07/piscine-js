@@ -11,9 +11,10 @@ function dayOfTheYear(date){
     let origineDate = (padStart+'-01-01')
     let origine = new Date(origineDate)
     let numberOfday = (date-origine)/(24*60*60*1000)
-    // if (date.toUTCString()===origine.toUTCString()){
-    //     return 1
-    // }
-    return 1
+
+    if (numberOfday===0){
+        return 1
+    }
+    return Math.round(numberOfday)
 }
 
