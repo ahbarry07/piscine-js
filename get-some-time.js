@@ -1,16 +1,12 @@
 
 function firstDayWeek(week, year){
-
-    const regex = /\//g
    
     year = parseInt(year)
     let annee = new Date(year, 0, 1)
     date = annee.getFullYear()
 	let jour = annee.getDay()
     if (week === 1 && jour !==1){
-        let dateFormat = new Intl.DateTimeFormat('fr-FR').format(annee)
-        let lastFormat = dateFormat.replace(regex, '-')
-        return lastFormat
+        return checkYear(year, annee)
     }
     let count = 0
     if (jour > 1){
@@ -26,10 +22,17 @@ function firstDayWeek(week, year){
     }
     let newDat = ((week-1)*7)-count
     annee.setDate(annee.getDate() + newDat)
-    if (year < 100){
-        annee.setFullYear(year)
+    return checkYear(year, annee)
+    
+}
+
+function checkYear(yearChecked, anneeObt){
+
+    const regex = /\//g
+    if (yearChecked < 100){
+        anneeObt.setFullYear(yearChecked)
     }
-    let dateFormat = new Intl.DateTimeFormat('fr-FR').format(annee)
+    let dateFormat = new Intl.DateTimeFormat('fr-FR').format(anneeObt)
     let lastFormat = dateFormat.replace(regex, '-')
     while (lastFormat.slice(6).length < 4){
         lastFormat = lastFormat.split('-')
@@ -37,6 +40,4 @@ function firstDayWeek(week, year){
         lastFormat = lastFormat.join('-')
     }
     return lastFormat
-    
 }
-
