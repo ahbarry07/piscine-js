@@ -1,6 +1,14 @@
 
 function flow(funcs) {
     return function (...args) {
-      return funcs.reduce((result, func) => func(result), ...args);
+      let result = args;
+      for (const func of funcs) {
+        result = func(...result);
+  
+        if (result < 0) {
+          return 0;
+        }
+      }
+      return result;
     };
-}
+  }
