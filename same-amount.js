@@ -1,9 +1,10 @@
-
-function sameAmount(str, regexp1, regexp2){
-
-    const match1 = (str.match(regexp1) || []);
-    const match2 = (str.match(regexp2) || []);
-    
-    return match1.length === match2.length;
-
-}
+function sameAmount(inputString, regex1, regex2) {
+    const matches1 = inputString.match(regex1);
+    const matches2 = inputString.match(regex2);
+  
+    if (!matches1 || !matches2) {
+      return false; 
+    }
+  
+    return matches1.length === matches2.length;
+  }
