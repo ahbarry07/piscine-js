@@ -16,7 +16,9 @@ function flow(funcs) {
         // if (Math.floor(result) === 8) return 15;
 
       }
-      return  result;
+      if (Array.isArray(result)) return result[0]
+      else return result
+    //   return  result;
     };
   }
   
