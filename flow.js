@@ -1,6 +1,20 @@
 
 function flow(funcs) {
     return function (...args) {
-      return funcs.reduce((result, func) => func(result), ...args);
+      let result = args;
+      for (const func of funcs) {
+        if (Array.isArray(result)) {
+          result = result.map((item) => func(item));
+        } else {
+          result = func(result);
+        }
+      }
+      return result;
     };
-}
+  }
+  
+  
+  
+  
+  
+  
