@@ -1,5 +1,5 @@
 
-const adder = (array) => array.reduce((sum, currentValue) => sum + currentValue, 0)
+const adder = (array, initial) => array.reduce((sum, currentValue) => sum + currentValue, initial)
 
 const sumOrMul = (array, num) => array.reduce((sum, currentValue) => currentValue % 2 === 0 ? sum * currentValue : sum + currentValue, num)
 
