@@ -1,6 +1,6 @@
 
 function hasCity(country, arrayOfCities){
-    return func(city) = function(){
+    return function(city) {
         for (let i in arrayOfCities){
             if (city === arrayOfCities[i]){
                 return `${city} is a city from ${country}`
