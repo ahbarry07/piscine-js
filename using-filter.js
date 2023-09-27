@@ -2,7 +2,7 @@ const regex1 = /[aoieuAOUIE]/ //recherche si une chaine contient une voyelle
 const regex2 = /(?:[^aeiouAEIOU]*[aeiouAEIOU]){5,}/ // la chaine doit contenir au moins 5 voyelles
 const regex3 = !/^aeiouAEIOU/ // la chaine ne doit pas commencer par une voyelle 
 
-const filterShortStateName = (array) => array.filter((x) => x.length === 7 )
+const filterShortStateName = (array) => array.filter((x) => x.length < 7 )
 
 const filterStartVowel = (array) => array.filter((x) => x[0].match(regex1))
 
@@ -25,3 +25,4 @@ function multiFilter(arrayObj){
         return capital && name && tag && region
     })
 }
+
