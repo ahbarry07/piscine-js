@@ -4,7 +4,7 @@ function every(array, func){
     for (let i = 0; i < array.length; i++){
          if (func(array[i], i, array)) count ++
     }
-    if (count === array.length) return true
+    return count === array.length
 }
 
 function some(array, func){
@@ -12,7 +12,7 @@ function some(array, func){
     for (let i = 0; i < array.length; i++){
          if (func(array[i], i, array)) count ++
     }
-    if (count !== 0) return true
+    return count !== 0
 }
 
 function none(array, func){
@@ -20,5 +20,5 @@ function none(array, func){
     for (let i = 0; i < array.length; i++){
          if (func(array[i], i, array)) count ++
     }
-    if (count === 0) return true
+    return count === 0
 }
