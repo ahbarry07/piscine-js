@@ -11,8 +11,8 @@ const trimTemp = (array) => array.map(temp =>{
     return temp
 })
 
-const tempForecasts = (arrayObj) =>arrayObj.map(temp =>
-    fahrenheitToCelsius(temp.temperature.replace(regex, '').split(' ').join('elsius')) + ' in ' + temp.city +', ' + temp.state
+const tempForecasts = (arrayObj) => arrayObj.map(temp =>
+    fahrenheitToCelsius(temp.temperature.replace(regex, '').split(' ')).join('elsius') + ' in ' + temp.city +', ' + temp.state
 ) 
 
 
