@@ -12,7 +12,7 @@ const trimTemp = (array) => array.map(temp =>{
 })
 
 const tempForecasts = (arrayObj) => arrayObj.map((x) =>
-    fahrenheitToCelsius(x.temperature.replace(regex, '').split(' ')).join('') + 'elsius in ' + x.city +', ' + x.state
+    fahrenheitToCelsius(x.temperature.replace(regex, '').split(' ')).join('') + 'elsius in ' + x.city +', ' + capitalizeWords(x.state)
    
 ) 
 
@@ -29,3 +29,4 @@ function capitalizeWords(str) {
   const capitalizedStr = capitalizedWords.join(' ');
   return capitalizedStr;
 }
+
