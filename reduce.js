@@ -1,0 +1,40 @@
+
+function fold(array, func, accumulator){
+    for(let i = 0; i < array.length; i++){
+        accumulator = func(accumulator, array[i], i, array)
+    }
+    return accumulator
+}
+
+function foldRight(array, func, accumulator){
+    for(let i = array.length-1; i >= 0; i--){
+        accumulator = func(accumulator, array[i], i, array)
+    }
+    return accumulator
+}
+
+function reduce(array, func){
+
+    if (array.length !== 0){
+        let accumulator = array[0]
+        for(let i = 0; i < array.length; i++){
+            accumulator = func(accumulator, array[i], i, array)
+        }
+        return accumulator
+    }
+
+    return Error
+}
+
+function reduce(array, func){
+
+    if (array.length !== 0){
+        let accumulator = array[array.length-1]
+        for(let i = array.length-1; i >= 0; i--){
+            accumulator = func(accumulator, array[i], i, array)
+        }
+        return accumulator
+    }
+
+    return Error
+}
