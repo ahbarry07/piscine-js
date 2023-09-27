@@ -17,12 +17,11 @@ function filter1DistinctVowel(arr) {
 }
 
 function multiFilter(arrayObj){
-    arrayObj.filter(temp =>{
+    return arrayObj.filter(temp =>{
         temp.capital.length >= 8
         temp.name.match(regex3)
         temp.tag.match(/(?:[^aeiouAEIOU]*[aeiouAEIOU]){1,}/)
         temp.region !== "South"
     })
-    return temp
 }
 
