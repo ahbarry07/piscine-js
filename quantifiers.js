@@ -1,24 +1,24 @@
 
 function every(array, func){
-    let count = 0
+    let compt = 0
     for (let i = 0; i < array.length; i++){
-         if (func(array[i], i, array)) count ++
+         if (func(array[i], i, array)) compt ++
     }
-    return count === array.length
+    return compt === array.length
 }
 
 function some(array, func){
-    let count = 0
+    let compt = 0
     for (let i = 0; i < array.length; i++){
-         if (func(array[i], i, array)) count ++
+         if (func(array[i], i, array)) compt ++
     }
-    return count > 0
+    return compt > 0
 }
 
 function none(array, func){
-    let count = 0
+    let compt = 0
     for (let i = 0; i < array.length; i++){
-         if (func(array[i], i, array)) count ++
+         if (func(array[i], i, array)) compt ++
     }
-    return count === 0
+    return compt === 0
 }
