@@ -1,9 +1,9 @@
 
 function filter(array, func){
     let newArray = []
-    for(let i = 0; i < array.length; i++){
-        if (func(array[i])){
-            newArray.push(array[i])
+    for(let value of array){
+        if (func(value)){
+            newArray.push(value)
         }
     }
     return newArray
@@ -11,9 +11,9 @@ function filter(array, func){
 
 function reject(array, func){
     let newArray = []
-    for(let i = 0; i < array.length; i++){
-        if (!func(array[i])){
-            newArray.push(array[i])
+    for(let value of array){
+        if (!func(value)){
+            newArray.push(value)
         }
     }
     return newArray
@@ -22,11 +22,11 @@ function reject(array, func){
 function partition(array, func){
     let trueArray = []
     let falseArray = []
-    for(let i = 0; i < array.length; i++){
-        if (func(array[i])){
-            trueArray.push(array[i])
+    for(let value of array){
+        if (func(value)){
+            trueArray.push(value)
         }else{
-            falseArray.push(array[i])
+            falseArray.push(value)
         }
     }
     return [trueArray, falseArray]
