@@ -1,6 +1,6 @@
 
-const longWords = (array) => array.filter((value) => value.length >= 5) === array.length
+const longWords = (array) => array.every((value) => value.length >= 5) 
 
-const oneLongWord = (array) =>  array.filter((value) => value.length >= 10) >= 1
+const oneLongWord = (array) =>  array.some((value) => value.length >= 10)
 
-const noLongWords = (array) => array.filter((value) => value.length >= 7) === 0
+const noLongWords = (array) => array.every((value) => value.length < 7)
