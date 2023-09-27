@@ -18,7 +18,7 @@ function filter1DistinctVowel(arr) {
 
 function multiFilter(arrayObj){
     return arrayObj.filter(temp =>{
-        let capital = temp.capital.length >= 8
+        let capital = temp.capital.length <= 8
         let name = temp.name.match(regex3)
         let tag = temp.tag.match(/(?:[^aeiouAEIOU]*[aeiouAEIOU]){1,}/) 
         let region = temp.region !== "South"
