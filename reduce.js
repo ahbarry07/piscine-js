@@ -26,7 +26,7 @@ function reduce(array, func){
     return Error
 }
 
-function reduce(array, func){
+function reduceRight(array, func){
 
     if (array.length !== 0){
         let accumulator = array[array.length-1]
