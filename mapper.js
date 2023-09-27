@@ -1,7 +1,7 @@
 
 function map(array, func){
     let newArray = []
-    for (let i in array){
+    for (let i = 0; i < array.length; i++){
         newArray.push(func(array[i], i, array))
     }
 
@@ -11,7 +11,7 @@ function map(array, func){
 function flatMap(array, func){
 
     let newArray = []
-    for (let i in array){
+    for (let i = 0; i < array.length; i++){
         let stock = func(array[i], i, array)
         newArray.push(...stock)
     }
