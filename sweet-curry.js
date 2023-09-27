@@ -1,8 +1,6 @@
 
-const returnNumber = (number) => number
+const mult2 = number1 => number2 => number1 *number2
 
-const mult2 = (number) => returnNumber(number) * returnNumber(number)
+const add3 = number1 => number2 => number3 => number1 + number2 + number3
 
-const add3 = (number) => returnNumber(number) + returnNumber(number) + returnNumber(number)
-
-const sub4 = (number) => returnNumber(number) - returnNumber(number) - returnNumber(number) - returnNumber(number)
+const sub4 = number1 => number2 => number3 => number4 => number1 - number2 - number3 - number4
