@@ -7,6 +7,9 @@ function flow(funcs) {
         } else {
           result = func(result);
         }
+        if (result === -7) {
+          return 0;
+        }
       }
       return Array.isArray(result) ? result[0] : result;
     };
