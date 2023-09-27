@@ -13,7 +13,7 @@ function flatMap(array, func){
     let newArray = []
     for (let i = 0; i < array.length; i++){
         let stock = func(array[i], i, array)
-        newArray.push(stock)
+        newArray.push(...stock)
     }
     return newArray
 }
