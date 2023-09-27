@@ -1,4 +1,3 @@
-
 function flow(funcs) {
     return function (...args) {
       let result = args;
@@ -9,12 +8,7 @@ function flow(funcs) {
           result = func(result);
         }
       }
-      return result;
+      return Array.isArray(result) ? result[0] : result;
     };
   }
-  
-  
-  
-  
-  
   
