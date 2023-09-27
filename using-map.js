@@ -4,7 +4,7 @@ const citiesOnly = (array) => array.map((x) => x.city)
 
 const  upperCasingStates = (array) => array.map((x) => capitalizeWords(x))
 
-const fahrenheitToCelsius = (array) => array.map((x) => Math.round((parseFloat(x.slice(0,3))-32) * (5/9)).toString()+'°C');
+const fahrenheitToCelsius = (array) => array.map((x) => Math.floor((parseFloat(x.slice(0,3))-32) * (5/9)).toString()+'°C');
 
 const trimTemp = (array) => array.map(temp =>{
     temp.temperature =  temp.temperature.replace(regex, '')
