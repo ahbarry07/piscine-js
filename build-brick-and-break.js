@@ -8,7 +8,7 @@ function build(numOfBric){
             div.dataset.foundation = true
         }
         document.body.append(div)
-        if (i === numOfBric-1) {
+        if (i === numOfBric) {
             clearInterval(timer)
         }
         i++
