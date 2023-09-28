@@ -1,10 +1,14 @@
 function flow(funcs) {
     return function (...args) {
-      let result = [args]; // Toujours traiter le résultat comme un tableau
+      let result = args;
       for (const func of funcs) {
-        result = result.map((arr) => func(...arr));
+        if (Array.isArray(result)) {
+          result = [result.map((item) => func(item))];
+        } else {
+          result = [func(result)];
+        }
       }
-      return result[0]; // Renvoyer le premier (et seul) élément du tableau
+      return result[0][0];
     };
   }
   
