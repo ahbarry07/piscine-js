@@ -30,13 +30,7 @@ function destroy(){
 
     let allDiv = document.querySelectorAll('div')
     let i = allDiv.length-1
-    let timer= setInterval(function(){
-        allDiv[i].remove()
-        if (i === 0){
-            clearInterval(timer)
-        }
-        i--
-    }, 100)
+    allDiv[i].remove()
 }
 
 export {build, repair, destroy}
