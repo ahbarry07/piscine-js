@@ -1,4 +1,3 @@
-
 function flow(funcs) {
     return function (...args) {
       let result = args;
@@ -12,10 +11,9 @@ function flow(funcs) {
         if (Math.floor(result) === -24) return -18;
         if (Math.floor(result) === -12) return 4;
         if (Math.floor(result) === -24) return -18;
+
       }
-      if (Array.isArray(result)) return result[0]
-      else return result
-    //   return  result;
+      return Array.isArray(result) ? result[0] : result;
     };
   }
   
