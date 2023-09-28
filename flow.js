@@ -1,19 +1,8 @@
-function flow(funcs) {
+function flow(arr) {
     return function (...args) {
-      let result = args;
-      for (const func of funcs) {
-        if (Array.isArray(result)) {
-          result = result.map((item) => func(item));
-        } else {
-          result = func(result);
+        if (args.length > 1) {
+            args = [arr[0](...args)];
         }
-        if (Math.floor(result) === -7) return 0;
-        if (Math.floor(result) === -24) return -18;
-        if (Math.floor(result) === -12) return 4;
-        if (Math.floor(result) === -24) return -18;
-
-      }
-      return Array.isArray(result) ? result[0] : result;
+        return arr.reduce((acc, fn) => fn(acc), args[0]);
     };
-  }
-  
+}
