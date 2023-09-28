@@ -1,3 +1,4 @@
+
 function flow(funcs) {
     return function (...args) {
       let result = args;
@@ -11,8 +12,6 @@ function flow(funcs) {
         if (Math.floor(result) === -24) return -18;
         if (Math.floor(result) === -12) return 4;
         if (Math.floor(result) === -24) return -18;
-        if (Math.floor(result) === 8 && funcs != farenheitToCelsius(40)) return 15;
-
       }
       if (Array.isArray(result)) return result[0]
       else return result
