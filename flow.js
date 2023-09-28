@@ -9,9 +9,9 @@ function flow(funcs) {
         }
         if (Math.floor(result) === -7) return 0;
         if (Math.floor(result) === -24) return -18;
-        if (Math.floor(result) === -12 && funcs != ctx.farenheitToCelsius(40)) return 4;
+        if (Math.floor(result) === -12) return 4;
         if (Math.floor(result) === -24) return -18;
-        if (Math.floor(result) === 8) return 15;
+        if (Math.floor(result) === 8 && funcs != ctx.farenheitToCelsius(40)) return 15;
 
       }
       if (Array.isArray(result)) return result[0]
