@@ -1,10 +1,7 @@
-function sameAmount(inputString, regex1, regex2) {
-    const matches1 = inputString.match(regex1);
-    const matches2 = inputString.match(regex2);
-  
-    if (!matches1 || !matches2) {
-      return false; 
-    }
-  
-    return matches1.length === matches2.length;
-  }
+function sameAmount(str, rexp1, rexp2) {
+    rexp1 = new RegExp(rexp1, "g");
+    rexp2 = new RegExp(rexp2, "g");
+    let test1 = str.match(rexp1);
+    let test2 = str.match(rexp2);
+    return test1 !== null && test2 !== null && test1.length === test2.length;
+}
