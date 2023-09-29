@@ -10,13 +10,19 @@ function pimp(){
             div.classList.add(styles[currenClass])
             currenClass++
         }
-        if (currenClass===styles.length-1) added = false
+        if (currenClass===styles.length-1){
+            div.classList.add('unpimp')
+            added = false
+        } 
     }else{
         if (currenClass > 0){
             currenClass--
             div.classList.remove(styles[currenClass]) 
         }
-        if (currenClass === 0) added = true  
+        if (currenClass === 0){
+            div.classList.remove('unpimp')
+            added = true 
+        }  
     }
 }
 
