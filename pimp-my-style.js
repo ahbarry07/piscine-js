@@ -10,7 +10,7 @@ function pimp(){
             div.classList.add(styles[currenClass])
             currenClass++
         }
-        if (currenClass===styles.length-1){
+        if (currenClass===styles.length){
             div.classList.toggle('unpimp')
             added = false
         } 
