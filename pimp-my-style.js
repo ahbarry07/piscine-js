@@ -1,4 +1,4 @@
-import { styles } from "./pimp-my-style.data.js"
+// import { styles } from "./pimp-my-style.data.js"
 
 let currenClass = 0
 let added = true
