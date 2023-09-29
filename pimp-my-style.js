@@ -1,4 +1,4 @@
-// import { styles } from "./pimp-my-style.data.js"
+import { styles } from "./pimp-my-style.data.js"
 
 let currenClass = 0
 let added = true
@@ -11,7 +11,7 @@ function pimp(){
             currenClass++
         }
         if (currenClass===styles.length-1){
-            div.classList.add('unpimp')
+            div.classList.toggle('unpimp')
             added = false
         } 
     }else{
@@ -20,7 +20,7 @@ function pimp(){
             div.classList.remove(styles[currenClass]) 
         }
         if (currenClass === 0){
-            div.classList.remove('unpimp')
+            div.classList.toggle('unpimp')
             added = true 
         }  
     }
