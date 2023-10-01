@@ -3,7 +3,9 @@ function firstDayWeek(week, year){
    
     year = parseInt(year)
     let annee = new Date(year, 0, 1)
+    console.log(annee)
 	let jour = annee.getDay()
+    console.log(jour)
     if (week === 1 && jour !==1){
         return formatDate(year, annee)
     }
@@ -47,3 +49,4 @@ function formatDate(yearChecked, anneeObt){
     return formattedDate
 }
 
+console.log(firstDayWeek(2, 2017))

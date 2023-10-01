@@ -27,7 +27,7 @@ function repair(...ids){
 }
 
 function destroy(){
-
+    
     let allDiv = document.querySelectorAll('div')
     let i = allDiv.length-1
     allDiv[i].remove()
