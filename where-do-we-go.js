@@ -3,8 +3,7 @@ export function explore() {
     for (let i = 0; i < places.length; i++) {
 
         let section = document.createElement("section")
-        const url = "https://public.01-edu.org/subjects/where-do-we-go/where-do-we-go_images/arlit.jpg"
-        section.style.backgroundImage = `url(${url})`
+        section.style.backgroundImage = "url(./images/" + places[i].name.split(',')[0].toLowerCase().split(' ').join('-') + ".jpg)"
         section.style.backgroundSize = "100%"
         section.className = "location"
         let link = document.createElement('a')
