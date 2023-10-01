@@ -3,7 +3,8 @@ import { places } from "./where-do-we-go.data.js";
 export function explore() {
     const body = document.body;
 
-    places.sort((a, b) => parseFloat(a.coordinates) - parseFloat(b.coordinates));
+    // places.sort((a, b) => parseFloat(a.coordinates) - parseFloat(b.coordinates));
+    places.sort(compareCoordinates)
     // let count = 1
     // console.log(places.length)
     places.forEach((place) => {
@@ -57,3 +58,53 @@ function updateIndicator(indicator, place) {
 }
 
 document.addEventListener("DOMContentLoaded", explore);
+
+function compareCoordinates(a, b) {
+    const aDirection = a.coordinates.split(" ")[0].split('"')[1];
+    const bDirection = b.coordinates.split(" ")[0].split('"')[1];
+    const aLat = a.coordinates.split(" ")[0];
+    const bLat = b.coordinates.split(" ")[0];
+    let aLatDeg = parseInt(aLat.split("°")[0]);
+    let aLatMin = parseInt(aLat.split("°")[1].split("'")[0]);
+    let aLatSec = parseInt(aLat.split("°")[1].split("'")[1].split('"')[0]);
+    let bLatDeg = parseInt(bLat.split("°")[0]);
+    let bLatMin = parseInt(bLat.split("°")[1].split("'")[0]);
+    let bLatSec = parseInt(bLat.split("°")[1].split("'")[1].split('"')[0]);
+    if (aDirection === "S") {
+        aLatDeg = -aLatDeg;
+        aLatMin = -aLatMin;
+        aLatSec = -aLatSec;
+    }
+    if (bDirection === "S") {
+        bLatDeg = -bLatDeg;
+        bLatMin = -bLatMin;
+        bLatSec = -bLatSec;
+    }
+    if (aLatDeg > bLatDeg) {
+        return -1;
+    }
+    if (aLatDeg < bLatDeg) {
+        return 1;
+    }
+    if (aLatDeg === bLatDeg) {
+        if (aLatMin > bLatMin) {
+            return -1;
+        }
+        if (aLatMin < bLatMin) {
+            return 1;
+        }
+        if (aLatMin === bLatMin) {
+            if (aLatSec > bLatSec) {
+                return 1;
+            }
+            if (aLatSec < bLatSec) {
+                return -1;
+            }
+            if (aLatSec === bLatSec) {
+                return 0;
+            }
+        }
+    }
+}
+
+export { explore };
