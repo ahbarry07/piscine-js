@@ -4,11 +4,13 @@ export function explore() {
     const body = document.body;
 
     places.sort((a, b) => parseFloat(a.coordinates) - parseFloat(b.coordinates));
-
+    // let count = 1
+    // console.log(places.length)
     places.forEach((place) => {
-        // console.log(place)
+        //  console.log(count)
         const section = createSection(place);
         body.appendChild(section);
+        // count++
     });
 
     const locationIndicator = createIndicator("location");
