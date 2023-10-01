@@ -52,15 +52,7 @@ function selectPlace() {
     location.href = `https://www.google.com/maps/place/${urlEncodeCoordinates(
         place.coordinates
     )}/`;
-    console.log(
-        location.href
-            .split("%C2%B0")
-            .join("°")
-            .split("%22")
-            .join('"')
-            .split("%20")
-            .join(" ")
-    );
+    
     location.target = "_blank";
     location.style.color = place.color;
 }
