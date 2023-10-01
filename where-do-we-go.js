@@ -20,7 +20,7 @@ document.addEventListener("scroll", () => {
 function explore() {
     // Places/sections
     places.sort(compareCoordinates);
-    console.log(places);
+   
     places.forEach((place) => {
         createSection(place);
     });
