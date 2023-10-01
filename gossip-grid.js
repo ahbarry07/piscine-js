@@ -50,15 +50,15 @@ export function grid() {
     allChange.appendChild(background)
     document.body.appendChild(allChange)
 
-    let share = document.createElement("form")
-    share.className = "gossip"
-    document.body.appendChild(share)
+    let form = document.createElement("form")
+    form.className = "gossip"
+    document.body.appendChild(form)
     let textarea = document.createElement("textarea")
-    textarea.setAttribute("placeholder", "Got a gossip to share?")
-    share.appendChild(textarea)
+    textarea.setAttribute("placeholder", "Got a gossip to form?")
+    form.appendChild(textarea)
     let button = document.createElement("button")
-    button.innerHTML = "Share gossip!"
-    share.appendChild(button)
+    button.innerHTML = "form gossip!"
+    form.appendChild(button)
     button.addEventListener("click", function () {
         let val = textarea.value
         let goss1 = document.createElement('div')
@@ -68,11 +68,11 @@ export function grid() {
         textarea.value = ""
         event.preventDefault()
     })
-    addGross(gossips)
+    addGrossElement(gossips)
 
 
 }
-function addGross(goss) {
+function addGrossElement(goss) {
     goss.forEach(elem => {
         let goss = document.createElement('div')
         goss.className = "gossip"
