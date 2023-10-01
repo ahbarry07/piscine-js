@@ -1,63 +1,76 @@
 import { places } from "./where-do-we-go.data.js";
 
-export function explore() {
-    const body = document.body;
+var scroll = window.scrollY;
+const location = document.createElement("a");
+location.classList.add("location");
+document.body.appendChild(location);
 
-    // places.sort((a, b) => parseFloat(a.coordinates) - parseFloat(b.coordinates));
-    places.sort(compareCoordinates)
-    // let count = 1
-    // console.log(places.length)
+document.addEventListener("DOMContentLoaded", () => {
+    selectPlace();
+});
+
+document.addEventListener("scroll", () => {
+    selectPlace();
+    scroll > window.scrollY
+        ? (document.querySelector(".direction").innerHTML = "N")
+        : (document.querySelector(".direction").innerHTML = "S");
+    scroll = window.scrollY;
+});
+
+function explore() {
+    // Places/sections
+    places.sort(compareCoordinates);
+    console.log(places);
     places.forEach((place) => {
-        //  console.log(count)
-        const section = createSection(place);
-        body.appendChild(section);
-        // count++
+        createSection(place);
     });
-
-    const locationIndicator = createIndicator("location");
-    body.appendChild(locationIndicator);
-
-    const compass = createIndicator("direction");
-    body.appendChild(compass);
-
-    let prevSectionIndex = -1;
-
-    window.addEventListener("scroll", () => {
-        const sectionIndex = Math.floor((window.scrollY + window.innerHeight / 2) / window.innerHeight);
-
-        if (sectionIndex !== prevSectionIndex) {
-            updateIndicator(locationIndicator, places[sectionIndex]);
-            prevSectionIndex = sectionIndex;
-        }
-
-        compass.textContent = window.scrollY > 0 ? "S" : "N";
-    });
+    // Compass
+    const compass = document.createElement("div");
+    compass.classList.add("direction");
+    document.body.appendChild(compass);
 }
 
 function createSection(place) {
-    const section = document.createElement("section");
-    section.style.backgroundImage = `url('./where-do-we-go_images/${
+    let section = document.createElement("section");
+    section.style.background = `url('./where-do-we-go_images/${
         place.name.toLowerCase().replaceAll(/ /g, "-").split(",")[0]
-    }.jpg')`
-    return section;
+    }.jpg')`;
+    section.style.backgroundSize = "cover";
+    section.style.backgroundPosition = "center";
+    section.style.backgroundRepeat = "no-repeat";
+    section.style.width = "100%";
+    section.style.height = "100vh";
+    document.body.appendChild(section);
 }
 
-function createIndicator(className) {
-    const indicator = document.createElement("div");
-    indicator.classList.add(className);
-    return indicator;
+function selectPlace() {
+    const sectionHeight = window.innerHeight;
+    const scroll = window.scrollY + sectionHeight / 2;
+    const sectionIndex = Math.floor(scroll / sectionHeight);
+    const place = places[sectionIndex];
+    location.textContent = `${place.name}\n${place.coordinates}`;
+    location.href = `https://www.google.com/maps/place/${urlEncodeCoordinates(
+        place.coordinates
+    )}/`;
+    console.log(
+        location.href
+            .split("%C2%B0")
+            .join("°")
+            .split("%22")
+            .join('"')
+            .split("%20")
+            .join(" ")
+    );
+    location.target = "_blank";
+    location.style.color = place.color;
 }
 
-function updateIndicator(indicator, place) {
-    if (place){
-        indicator.textContent = `${place.name}\n${place.coordinates}`;
-        indicator.href = `https://www.google.com/maps/place/${encodeURIComponent(place.coordinates)}/`;
-        indicator.style.color = place.color;
-        indicator.target = "_blank";
-    }
+function urlEncodeCoordinates(coordinates) {
+    return coordinates
+        .replaceAll(" ", "%20")
+        .replaceAll("°", "%C2%B0")
+        .replaceAll('"', "%22");
 }
-
-document.addEventListener("DOMContentLoaded", explore);
 
 function compareCoordinates(a, b) {
     const aDirection = a.coordinates.split(" ")[0].split('"')[1];
@@ -106,3 +119,5 @@ function compareCoordinates(a, b) {
         }
     }
 }
+
+export { explore };
