@@ -18,11 +18,21 @@ function mapKeys(obj, args){
 }
 
 function reduceKeys(obj, reducer, initialValue) {
-    let accumulator = initialValue;
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        accumulator = reducer(accumulator, key);
-      }
+    if (arguments.length === 2){
+        initialValue = ''
+        const keys = Object.keys(obj)
+        let accumulator = keys[0]
+        for(let i = 1; i < keys.length; i++){
+            const key = keys[i] 
+            accumulator = reducer(accumulator, key, obj[key], obj)
+        }
+        return  accumulator 
+    }else{
+
+        accumulator = initialValue;
+        for (const key in obj) {
+            accumulator = reducer(accumulator, key, obj[key]);
+        }
+        return accumulator;
     }
-    return accumulator;
 }
