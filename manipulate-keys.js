@@ -17,12 +17,12 @@ function mapKeys(obj, args){
     return resultObj
 }
 
-function reduceKeys(obj, args, add=''){
-    const keys = Object.keys(obj)
-    let acc = keys[0]
-    for(let i = 1; i < keys.length; i++){
-        const key = keys[i] 
-        acc = args(acc, key, obj[key], obj)
+function reduceKeys(obj, reducer, initialValue) {
+    let accumulator = initialValue;
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        accumulator = reducer(accumulator, key);
+      }
     }
-    return acc + add
+    return accumulator;
 }
