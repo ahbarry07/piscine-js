@@ -18,9 +18,11 @@ function mapKeys(obj, args){
 }
 
 function reduceKeys(obj, args, add=''){
-    let acc = Object.keys(obj)[0]
-    for(let key in obj){
-        if (acc !==key)  acc = args(acc, key, obj[key], obj)
+    const keys = Object.keys(obj)
+    let acc = keys[0]
+    for(let i = 1; i < keys.length; i++){
+        const key = keys[i] 
+        acc = args(acc, key, obj[key], obj)
     }
     return acc + add
 }
