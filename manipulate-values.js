@@ -12,9 +12,7 @@ function filterValues(obj, args){
 function mapValues(obj, args){
     let resultObj = {}
     for (let key in obj){
-        if(args(obj[key], key, obj)){
-            resultObj[key] = obj[key] + 1
-        } 
+        resultObj[key] = args(obj[key], key, obj)   
     }
     return resultObj
 }
