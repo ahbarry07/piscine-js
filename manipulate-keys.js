@@ -18,11 +18,18 @@ function mapKeys(obj, args){
 }
 
 function reduceKeys(obj, reducer, initialValue) {
-    let accumulator = initialValue;
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        accumulator = reducer(accumulator, key);
-      }
+    let undef = false;
+    if (initialValue === undefined) {
+        initialValue = "";
+        undef = true;
     }
-    return accumulator;
+    let res = Object.keys(obj).reduce((acc, curr) => {
+        return reducer(acc, curr, initialValue);
+    }, initialValue);
+   
+    if (typeof res !== "number") {
+        if (res.slice(0, 2) === ", ") res = res.slice(2);
+        if (undef && res[0] === ":") res = res.slice(1);
+    }
+    return res;
 }
