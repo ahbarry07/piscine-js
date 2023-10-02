@@ -20,9 +20,7 @@ function mapKeys(obj, args){
 function reduceKeys(obj, args, add=''){
     let acc = Object.keys(obj)[0]
     for(let key in obj){
-        acc = args(acc, key, obj[key], obj)
+        if (acc !==key)  acc = args(acc, key, obj[key], obj)
     }
-    return acc.split(', ').slice(1).join(', ') + add
-   
+    return acc + add
 }
-
