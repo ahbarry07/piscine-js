@@ -13,8 +13,8 @@ function fusion(obj1, obj2){
         else if (obj1.hasOwnProperty(key)) objConcat[key] = obj1[key]
         else if (obj2.hasOwnProperty(key)) objConcat[key] = obj2[key]
     }
-    for (const clé in obj2) {
-        if (!obj1.hasOwnProperty(clé)) objConcat[clé] = obj2[clé]    
+    for (const key in obj2) {
+        if (!obj1.hasOwnProperty(key)) objConcat[key] = obj2[key]    
     }
     return objConcat
 }
