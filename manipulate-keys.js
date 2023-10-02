@@ -18,21 +18,29 @@ function mapKeys(obj, args){
 }
 
 function reduceKeys(obj, reducer, initialValue) {
-    if (arguments.length === 2){
-        initialValue = ''
-        const keys = Object.keys(obj)
-        let accumulator = keys[0]
-        for(let i = 1; i < keys.length; i++){
-            const key = keys[i] 
-            accumulator = reducer(accumulator, key, obj[key], obj)
-        }
-        return  accumulator 
-    }else{
-
-        accumulator = initialValue;
-        for (const key in obj) {
-            accumulator = reducer(accumulator, key, obj[key]);
-        }
-        return accumulator;
+    let accumulator = initialValue;
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        accumulator = reducer(accumulator, key);
+      }
     }
+    return accumulator;
 }
+  
+const nutrients = {
+    'vinegar': 80,
+    'sugar': 100,
+    'oil': 50,
+    'onion': 200,
+    'garlic': 22,
+    'paprika': 4,
+  }
+
+console.log(filterKeys(nutrients, (key) => /protein/.test(key)))
+// output: { protein: 20 }
+
+console.log(mapKeys(nutrients, (k) => `-${k}`))
+// output: { -carbohydrates: 12, -protein: 20, -fat: 5 }
+
+console.log(reduceKeys(nutrients, (acc, cr) => `${acc}${cr}:`, ':'))
+// output: carbohydrates, protein, fat
