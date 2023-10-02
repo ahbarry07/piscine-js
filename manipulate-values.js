@@ -17,10 +17,10 @@ function mapValues(obj, args){
     return resultObj
 }
 
-function reduceValues(obj, args){
+function reduceValues(obj, args, add=0){
     let acc = Object.values(obj)[0]
     for(let key in obj){
-        acc = args(acc, obj[key], key, obj) 
+        acc = args(acc, obj[key], key) 
     }
-    return acc - Object.values(obj)[0]
+    return (acc - Object.values(obj)[0]) + add
 }
