@@ -9,19 +9,18 @@ function filterEntries(obj, args) {
   return resultObj;
 }
 
-function mapEntries(obj, args) {
-  obj = Object.entries(obj);
-  let resultObj = {};
-  for (let [key, value] of obj) {
-    resultObj[key] = args([key, value]);
-  }
-  return resultObj;
-}
+const mapEntries = (obj, fn) =>
+  Object.fromEntries(
+    Object.entries(obj).map(([key, value]) => fn([key, value])) 
+  );
 
 const reduceEntries = (obj, args, initialValue) =>
   initialValue === undefined
     ? Object.entries(obj).reduce((t, [key, value]) => args(t, [key, value]))
-    : Object.entries(obj).reduce((t, [key, value]) => args(t, [key, value]), initialValue);
+    : Object.entries(obj).reduce(
+        (t, [key, value]) => args(t, [key, value]),
+        initialValue
+      );
 
 function totalCalories(obj) {
   return Number(
@@ -105,7 +104,15 @@ const cartTotal = (obj) =>
 //   },
 // };
 // const groceriesCart1 = { oil: 500, onion: 230, garlic: 220, paprika: 480 };
+// // console.log(
+// //   reduceEntries(groceriesCart1, (acc, [k, v]) => acc + k + v, "") ===
+// //     "oil500onion230garlic220paprika480"
+// // );
+
 // console.log(
-//   reduceEntries(groceriesCart1, (acc, [k, v]) => acc + k + v, "") ===
-//     "oil500onion230garlic220paprika480"
+//   mapEntries(
+//     filterEntries(groceriesCart1, ([k, v]) => k === "onion"),
+//     ([k, v]) => [`✔️${k}`, v - 100]
+//   ),
+//   { "✔️onion": 130 }
 // );
