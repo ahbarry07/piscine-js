@@ -47,7 +47,7 @@ const cartTotal = (obj) => {
   for (const [key, value] of Object.entries(obj)) {
     newObj[key] = mapEntries(nutritionDB[key], ([k, v]) => [
       k,
-      parseFloat(((v / 100) * value).toFixed(1)),
+      parseFloat(((v / 100) * value).toFixed(3)),
     ]);
   }
   return newObj;
