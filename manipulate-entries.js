@@ -22,7 +22,7 @@ function mapEntries(entries, mapper) {
     return res
 }
 
-function reduceEntries(obj, args, add=0){
+function reduceEntries(obj, args, add=null){
     obj = Object.entries(obj)
     let acc = obj[0][1]
     for(let [key, value] of obj){
