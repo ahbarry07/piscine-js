@@ -10,13 +10,16 @@ function filterEntries(obj, args){
     return resultObj
 }
 
-function mapEntries(obj, args){
-    obj = Object.entries(obj)
-    let resultObj = {}
-    for (let [key, value] of obj){
-        resultObj[key] = args([key, value])   
+function mapEntries(entries, mapper) {
+    let temp = {}
+    for (let key in entries) {
+        temp[key] = mapper([key, entries[key]])
     }
-    return resultObj
+    let res = {}
+    for (let key in temp) {
+        res[temp[key][0]] = temp[key][1]
+    }
+    return res
 }
 
 function reduceEntries(obj, args, add=0){
