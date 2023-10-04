@@ -1,6 +1,6 @@
 function deepCopy(obj_or_array){
 
-    if (!Array.isArray(obj_or_array) || !typeof obj_or_array === "object" || obj_or_array === null || obj_or_array instanceof RegExp) return obj_or_array
+    if (typeof obj_or_array !== "object" || obj_or_array === null || obj_or_array instanceof RegExp) return obj_or_array
 
     if (Array.isArray(obj_or_array)){
         let newArray = []
