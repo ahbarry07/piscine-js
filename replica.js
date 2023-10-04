@@ -20,5 +20,5 @@ function fusion(obj1, obj2){
 }
 function replica(obj, target){
 
-    return Object.values(fusion(obj, target))
+    return (fusion(obj, target))
 }
