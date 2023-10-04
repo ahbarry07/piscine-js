@@ -33,9 +33,9 @@ const filterForce = (obj1) => filterCurry(([, value]) => value.isForceUser && va
 
 
 function mapAverage(obj) {
-    let scoresAvg = mapCurry(([k, value]) => [k,(value.pilotingScore + value.shootingScore) / 2,])(obj)
-    for (let key in scoresAvg) {
-        obj[key].scoresAvg = scoresAvg[key];
+    let averageScore = mapCurry(([k, value]) => [k,(value.pilotingScore + value.shootingScore) / 2])(obj)
+    for (let key in averageScore) {
+        obj[key].averageScore = averageScore[key];
     }
     return obj;
 }
