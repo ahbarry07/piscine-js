@@ -11,9 +11,10 @@ function replica(obj, ...target){
     for(const src of target){
         for (const key in src){
             if (is.obj(src[key])){
-                if (obj.hasOwnProperty(key) && is.obj(obj[key])){
-                    replica(obj[key], src[key])
+                if (!obj.hasOwnProperty(key) || !is.obj(obj[key])){
+                    obj[key] = {}
                 }
+                replica(obj[key], src[key])
             }else{
                 obj[key] = src[key]
             }
