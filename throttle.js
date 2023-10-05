@@ -17,10 +17,9 @@ function opThrottle(callback, delay, lead = false){
 	let lastTime = 0
 	return (...args) =>{
 		if (inc && lead){
-			callback(...args)
+			// callback(...args)
+			inc = false
 		}
-		inc = false
-
 		if (timeNow - lastTime < delay){
 			return
 		}
