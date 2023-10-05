@@ -1,6 +1,6 @@
 
 function throttle(callback, delay){
-	let lastTime = 0
+	let lastTimeOfExecution = 0
 	return (...args) => {
 		const timeNow = new Date().getTime()
 		if (timeNow - lastTime < delay){
@@ -11,18 +11,23 @@ function throttle(callback, delay){
 	}
 }
 
-function opThrottle(callback, delay, lead){
-	let inc = true
-	const timeNow = new Date().getTime()
-	return (...args) =>{
-		if (inc && lead){
-			inc = false
+function opThrottle(callback, delay, {trail=false, lead=false}){
+	let lastTimeOfExecution = 0
+	let timeNow = new Date().getTime()
+	return (...args){
+		if (trail) {
+			lastTimeOfExecution = timeNow
+			trail = false
 		}
-		let lastTime = 0
-		if (timeNow - lastTime < delay){
-			return
+		if (timeNow - lastTimeOfExecution < delay && lead){
+			callback(...args)
+			lastTimeOfExecution = timeNow
 		}
-		lastTime = timeNow
-		return callback(...args)
+		if (trail) {
+      		setTimeout(() => {
+	        callback(...args);
+	        lastTimeOfExecution = timeNow;
+      }, delay );
+
 	}
 }
