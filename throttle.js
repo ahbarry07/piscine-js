@@ -6,7 +6,7 @@ function throttle(callback, delay){
 		if (timeNow - lastTimeOfExecution < delay){
 			return
 		}
-		lastTime = timeNow
+		lastTimeOfExecution = timeNow
 		return callback(...args)
 	}
 }
