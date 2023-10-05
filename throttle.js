@@ -3,7 +3,7 @@ function throttle(callback, delay){
 	let lastTimeOfExecution = 0
 	return (...args) => {
 		const timeNow = new Date().getTime()
-		if (timeNow - lastTime < delay){
+		if (timeNow - lastTimeOfExecution < delay){
 			return
 		}
 		lastTime = timeNow
