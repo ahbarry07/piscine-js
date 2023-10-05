@@ -9,17 +9,18 @@ function debounce(func, attempt){
 	}
 }
 
-function opDebounce(func, attempt, option){
+function opDebounce(func, attempt, option = false){
 	let timer
-	// option = false
+	let inc = true
 	return function(...args){
-		clearTimeout(timer)
-		if (option){
-			timer = setTimeout(function(){
-				func.apply(this, args)
-			}, attempt)
-		}else{
-			func.call(this, ...args)
+		if (inc && option){
+			func.apply(this, args)
+			inc = false
 		}
+		clearTimeout(timer)
+		timer = setTimeout(function(){
+			func.apply(this, args)
+		}, attempt)
 	}
 }
+console.log((opDebounce(add, 40), { delay: 20, count: 5 }));
