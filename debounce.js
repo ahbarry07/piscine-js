@@ -23,4 +23,3 @@ function opDebounce(func, attempt, option = false){
 		}, attempt)
 	}
 }
-console.log((opDebounce(add, 40), { delay: 20, count: 5 }));
