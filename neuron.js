@@ -1,37 +1,24 @@
 function neuron(arr) {
-    const result = { questions: {}, orders: {}, affirmations: {} };
+    // Créez un objet vide pour stocker les résultats
+    const result = { questions: {}, orders: {} };
   
+    // Parcourez le tableau d'entrée
     for (let i = 0; i < arr.length; i++) {
-      const parts = arr[i].split(' - ');
-      const category = parts[0].toLowerCase();
-      const [statement, response] = parseStatementResponse(parts[1]);
-
-      const categoryKey = category.replace(':', '').trim();
+      const [category, rest] = arr[i].split(': ');
+      const [statement, response] = rest.split(' - Response: ');
   
-      const statementKey = statement.replace('?', '').replace('!', '').trim().toLowerCase();
+      // Normalisez les clés
+      const categoryKey = category.toLowerCase().replace(':', '').trim();
+      const statementKey = statement.toLowerCase().replace('?', '').replace('!', '').trim().replace(/ /g, '_');
   
-      if (category.startsWith('questions:')) {
-        if (!result.questions[statementKey]) {
-          result.questions[statementKey] = { question: statement, responses: [] };
-        }
-        result.questions[statementKey].responses.push(response);
-      } else if (category.startsWith('orders:')) {
-        if (!result.orders[statementKey]) {
-          result.orders[statementKey] = { order: statement, responses: [] };
-        }
-        result.orders[statementKey].responses.push(response);
-      } else if (category.startsWith('affirmations:')) {
-        if (!result.affirmations[statementKey]) {
-          result.affirmations[statementKey] = { affirmation: statement, responses: [] };
-        }
-        result.affirmations[statementKey].responses.push(response);
+      // Créez l'objet pour la catégorie si elle n'existe pas
+      if (!result[categoryKey]) {
+        result[categoryKey] = {};
       }
+  
+      // Ajoutez la déclaration et la réponse
+      result[categoryKey][statementKey] = { [categoryKey]: statement, responses: [response] };
     }
   
     return result;
-  }
-  
-  function parseStatementResponse(str) {
-    const [statement, response] = str.split(' - ');
-    return [statement.trim(), response.trim()];
   }
