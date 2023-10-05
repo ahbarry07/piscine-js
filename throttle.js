@@ -1,9 +1,9 @@
 
-function throttle(callback, delay){
+function throttle(callback, delay) {
 	let lastTimeOfExecution = 0
 	return (...args) => {
 		const timeNow = new Date().getTime()
-		if (timeNow - lastTimeOfExecution < delay){
+		if (timeNow - lastTimeOfExecution < delay) {
 			return
 		}
 		lastTimeOfExecution = timeNow
@@ -11,22 +11,24 @@ function throttle(callback, delay){
 	}
 }
 
-function opThrottle(callback, delay, {trailing, leading}={}){
+function opThrottle(callback, delay, { leading = true, trailing = true } = {}) {
 	let lastTimeOfExecution = 0
-	let timeNow = new Date().getTime()
 	let timer
-	return (...args) =>{
-		if (leading && (timeNow - lastTimeOfExecution >= delay)) {
+
+	return (...args) => {
+		const timeNow = new Date().getTime()
+
+		if (leading && timeNow - lastTimeOfExecution >= delay) {
 			callback(...args)
 			lastTimeOfExecution = timeNow
 		}
-		
+
 		if (trailing) {
 			clearTimeout(timer)
-      		timer = setTimeout(function(){
-				callback(...args);
+			timer = setTimeout(() => {
+				callback(...args)
 				lastTimeOfExecution = timeNow
-      		}, delay);
+			}, delay)
 		}
 	}
 }
