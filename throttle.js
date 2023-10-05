@@ -19,11 +19,11 @@ function opThrottle(callback, delay, {trail=false, lead=false}){
 			lastTimeOfExecution = timeNow
 			trail = false
 		}
-		if (timeNow - lastTimeOfExecution < delay && lead){
+		if (timeNow - lastTimeOfExecution < delay){
 			callback(...args)
 			lastTimeOfExecution = timeNow
 		}
-		if (trail) {
+		if (lead) {
       		setTimeout(() => {
 	        callback(...args);
 	        lastTimeOfExecution = timeNow;
