@@ -11,7 +11,7 @@ function throttle(callback, delay) {
 	}
 }
 
-function opThrottle(callback, delay, { leading = true, trailing = true } = {}) {
+function opThrottle(callback, delay, { leading = false, trailing = false }) {
 	let lastTimeOfExecution = 0
 	let timer
 
