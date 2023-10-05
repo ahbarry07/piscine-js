@@ -1,7 +1,7 @@
 
 function interpolation({step = 0, start = 0, end = 0, callback, duration = 0}){
 
-    let interval = end / step
+    let interval = (end - start) / step
     let [current, i] = [start, 0]
     let timer = setInterval(function(){
         if ( i < step){
