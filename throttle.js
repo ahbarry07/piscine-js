@@ -12,25 +12,27 @@ function throttle(callback, delay) {
 }
 
 function opThrottle(callback, delay, { leading = true, trailing = true } = {}) {
-	let lastTimeOfExecution = 0
-	let timer
+	let lastTimeOfExecution = 0;
+	let timer;
+	let pendingArgs;
 
 	return (...args) => {
-		const timeNow = new Date().getTime()
+		const timeNow = new Date().getTime();
 
-		if (leading) {
-			lastTimeOfExecution = timeNow
-			leading = false
-		}
-		if (timeNow - lastTimeOfExecution >= delay){
-			callback(...args)
-			lastTimeOfExecution = timeNow
-		}
-		if (trailing) {
-			clearTimeout(timer)
+		if (leading && (timeNow - lastTimeOfExecution >= delay || lastTimeOfExecution === 0)) {
+			callback(...args);
+			lastTimeOfExecution = timeNow;
+			leading = false;
+		} else {
+			clearTimeout(timer);
+			pendingArgs = args;
 			timer = setTimeout(() => {
-				callback(...args)
-			}, delay)
+				if (trailing && pendingArgs) {
+					callback(...pendingArgs);
+					lastTimeOfExecution = new Date().getTime();
+					pendingArgs = null;
+				}
+			}, delay);
 		}
-	}
+	};
 }
