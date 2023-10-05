@@ -1,24 +1,40 @@
-function neuron(arr) {
-    // Créez un objet vide pour stocker les résultats
-    const result = { questions: {}, orders: {} };
+function neuron(data) {
+   
+    const mutatedData = {
+      questions: {},
+      orders: {}
+    };
   
-    // Parcourez le tableau d'entrée
-    for (let i = 0; i < arr.length; i++) {
-      const [category, rest] = arr[i].split(': ');
-      const [statement, response] = rest.split(' - Response: ');
+    for (const line of data) {
+      
+      const [questionOrOrder, response] = line.split(": ");
   
-      // Normalisez les clés
-      const categoryKey = category.toLowerCase().replace(':', '').trim();
-      const statementKey = statement.toLowerCase().replace('?', '').replace('!', '').trim().replace(/ /g, '_');
+      if (questionOrOrder.startsWith("Questions: ")) {
+        const question = questionOrOrder.substring("Questions: ".length);
   
-      // Créez l'objet pour la catégorie si elle n'existe pas
-      if (!result[categoryKey]) {
-        result[categoryKey] = {};
+        if (mutatedData.questions[question]) {
+          mutatedData.questions[question].responses.push(response);
+        } else {
+          mutatedData.questions[question] = {
+            question,
+            responses: [response]
+          };
+        }
       }
   
-      // Ajoutez la déclaration et la réponse
-      result[categoryKey][statementKey] = { [categoryKey]: statement, responses: [response] };
+      else if (questionOrOrder.startsWith("Orders: ")) {
+        const order = questionOrOrder.substring("Orders: ".length);
+  
+        if (mutatedData.orders[order]) {
+          mutatedData.orders[order].responses.push(response);
+        } else {
+          mutatedData.orders[order] = {
+            order,
+            responses: [response]
+          };
+        }
+      }
     }
   
-    return result;
+    return mutatedData;
   }
