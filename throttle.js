@@ -11,13 +11,11 @@ function throttle(callback, delay) {
 	}
 }
 
-function opThrottle(callback, delay, { leading = true, trailing = true } = {}) {
+function opThrottle(callback, delay, { leading = false, trailing = false } = {}) {
 	let lastTimeOfExecution =new Date().getTime()
 	let timer
 
-	if (leading) {
-		lastTimeOfExecution = 0
-	}
+	if (leading) lastTimeOfExecution = 0
 	return (...args) => {
 		const timeNow = new Date().getTime()
 
@@ -28,7 +26,7 @@ function opThrottle(callback, delay, { leading = true, trailing = true } = {}) {
 		}
 		if (trailing) {
 			clearTimeout(timer)
-			timer = setTimeout(() => {
+			timer = setTimeout((...args) => {
 				callback(...args)
 			}, delay)
 		}
