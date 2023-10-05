@@ -14,7 +14,7 @@ function throttle(callback, delay){
 function opThrottle(callback, delay, {trail=false, lead=false}){
 	let lastTimeOfExecution = 0
 	let timeNow = new Date().getTime()
-	return (...args){
+	return (...args) =>{
 		if (trail) {
 			lastTimeOfExecution = timeNow
 			trail = false
@@ -27,7 +27,7 @@ function opThrottle(callback, delay, {trail=false, lead=false}){
       		setTimeout(() => {
 	        callback(...args);
 	        lastTimeOfExecution = timeNow;
-      }, delay );
-
+      		}, delay);
+		}
 	}
 }
