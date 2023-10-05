@@ -25,6 +25,7 @@ function opThrottle(callback, delay, { leading = true, trailing = true } = {}) {
 		if (timeNow - lastTimeOfExecution >= delay){
 			callback(...args)
 			lastTimeOfExecution = timeNow
+			leading = false
 		}
 		if (trailing) {
 			clearTimeout(timer)
