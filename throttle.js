@@ -12,16 +12,15 @@ function throttle(callback, delay) {
 }
 
 function opThrottle(callback, delay, { leading = true, trailing = true } = {}) {
-	let lastTimeOfExecution = 0
+	let lastTimeOfExecution =new Date().getTime()
 	let timer
 
+	if (leading) {
+		lastTimeOfExecution = 0
+	}
 	return (...args) => {
 		const timeNow = new Date().getTime()
 
-		if (leading) {
-			lastTimeOfExecution = timeNow
-			leading = false
-		}
 		if (timeNow - lastTimeOfExecution >= delay){
 			callback(...args)
 			lastTimeOfExecution = timeNow
