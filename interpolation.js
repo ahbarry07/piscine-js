@@ -1,17 +1,15 @@
 
-function interpolation({step, start, end, callback, duration}){
+function interpolation({step = 0, start = 0, end = 0, callback, duration = 0}){
 
+    let interval = end / step
+    let [current, i] = [start, 0]
     let timer = setInterval(function(){
-
-        let interval = end / step
-        for (let i = 0; i <= step; i += interval){
-            for(let j = start; j <= duration; j += i*duration){
-                callback([i, j])
-            }
-            if (end-i === 2*interval){
-                clearInterval(timer)
-            }
-            callback([i, j])
+        if ( i < step){
+            callback([current, (duration / step)*(i+1)])
+            current += interval
+            i++
+        }else{
+            clearInterval(timer)
         }
     }, duration / step)
 
