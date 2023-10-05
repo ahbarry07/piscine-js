@@ -19,9 +19,8 @@ function opThrottle(callback, delay, { leading = true, trailing = true } = {}) {
 		const timeNow = new Date().getTime()
 
 		if (leading) {
-			// callback(...args)
 			lastTimeOfExecution = timeNow
-			leading = false
+			// leading = false
 		}
 		if (timeNow - lastTimeOfExecution >= delay){
 			callback(...args)
