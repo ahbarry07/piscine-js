@@ -13,13 +13,12 @@ function throttle(callback, delay){
 
 function opThrottle(callback, delay, lead = false){
 	let inc = true
-	const timeNow = new Date().getTime()
-	let lastTime = 0
 	return (...args) =>{
 		if (inc && lead){
-			// callback(...args)
 			inc = false
 		}
+		const timeNow = new Date().getTime()
+		let lastTime = 0
 		if (timeNow - lastTime < delay){
 			return
 		}
