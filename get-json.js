@@ -9,12 +9,12 @@ async function getJSON(path, params = {} ){
         if (!result) return response.statusText
         dataUrl = response.json()
         if (!response.ok){
-            return response.statusText
+            throw Error(response.statusText)
         }
         return dataUrl
     })
 
-    if (dataUrl.error) return dataUrl.error
+    if (result.error) throw Error(result.error)
 
     return result.data
 }
