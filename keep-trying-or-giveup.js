@@ -1,5 +1,5 @@
 
-function retry(count = 3, callback = async function(){}){
+function retry(count = 0, callback = async function(){}){
     return async (...args) =>{
         try{
             let result = await callback(...args)
