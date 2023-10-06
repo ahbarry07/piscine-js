@@ -1,7 +1,6 @@
 
 async function getJSON(path, params = {} ){
    
-    let dataUrl
     let url = new URLSearchParams([...Object.entries(params)])
     url = `${path}?${url.toString()}`
 
