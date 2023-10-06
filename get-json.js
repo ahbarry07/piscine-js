@@ -11,6 +11,7 @@ async function getJSON(path, params = {} ){
         if (!response.ok){
             return response.statusText
         }
+        return dataUrl
     })
 
     if (dataUrl.error) return dataUrl.error
