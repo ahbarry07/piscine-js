@@ -11,3 +11,21 @@ function retry(count = 0, callback = async function(){}){
     }
 }
 
+function timeout(delay, callback){
+    return async (...args) =>{
+        let timer
+        const newPromise = new Promise((_, reject) => {
+           timer = setTimeout(() =>{
+                reject(new Error('timeout'))
+            }, delay)
+        })
+
+    try {
+            const result = await Promise.race([callback(...args), newPromise])
+            clearTimeout(timer) 
+            return result
+        }catch (error) {
+            throw error
+        }
+    }
+}
