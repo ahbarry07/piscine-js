@@ -1,20 +1,21 @@
 
 async function getJSON(path, params = {} ){
    
-    let data
+    let dataUrl
     let url = new URLSearchParams([...Object.entries(params)])
     url = `${path}?${url.toString()}`
 
     let result = await fetch(url).then((response)=> {
+        dataUrl = response.json()
         if (!response.ok){
-            return new Error(response.statusText)
-        }else{
-            if (response.json.error) return response.json.error
-            return response.json().data
+            return response.statusText
         }
-
     })
-   
+    if (!result) return response.statusText
+
+    if (dataUrl.error) return dataUrl.error
+
+    return result.data
 }
 
 // console.log(getJSON('/test', { query: 'hello world', b: 5 }))
