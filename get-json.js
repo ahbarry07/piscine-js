@@ -6,12 +6,10 @@ async function getJSON(path, params = {} ){
     url = `${path}?${url.toString()}`
 
     let result = await fetch(url).then((response)=> {
-        if (!result) return response.statusText
-        dataUrl = response.json()
         if (!response.ok){
             throw Error(response.statusText)
         }
-        return dataUrl
+       return response.json()
     })
 
     if (result.error) throw Error(result.error)
