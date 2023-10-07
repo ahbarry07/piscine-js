@@ -1,4 +1,3 @@
-let getJSON = async (url) => url
 
 async function queryServers(serverName, q){
 
