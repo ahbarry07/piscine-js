@@ -19,6 +19,6 @@ async function isWinner(country){
         }
         return `${country} is not what we are looking for because of the continent`
     }).catch((e)=>{
-        // return `${country} never was a winner`
+        return `${country} never was a winner`
     })
 }
