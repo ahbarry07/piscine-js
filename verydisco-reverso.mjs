@@ -29,7 +29,7 @@ function readAndTransform(filename){
 
 
 argv.forEach((val, index) => {
-    if (index === 3) {
+    if (index === 2) {
         let content = readAndTransform(val)
         let parts = content.split(' ')
         parts.forEach((value) => {
