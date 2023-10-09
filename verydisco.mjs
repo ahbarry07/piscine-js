@@ -15,9 +15,7 @@ function processArgument() {
       return;
     }
   
-    const input = args.join(" ");
-    const words = input.split(" ");
-    const discoWords = words.map(makeWordVeryDisco);
+    const discoWords = args.map(makeWordVeryDisco);
   
     console.log(discoWords.join(" "));
 }
