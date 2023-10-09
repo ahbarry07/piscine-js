@@ -10,11 +10,15 @@ function tellMeHowMany(path){
 
 if (argv.length === 0){
     const currentRepetory = __dirname
-    console.log(tellMeHowMany(currentRepetory))
+    const result = tellMeHowMany(currentRepetory)
+    console.log(result)
+    console.log(1)
 }else{
     argv.forEach((val, index) => {
         if (index === 2){
-            console.log(tellMeHowMany(val))
+            let result = tellMeHowMany(val)
+            console.log(result)
+            console.log(2)
         }
     });
 }
