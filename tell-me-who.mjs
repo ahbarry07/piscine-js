@@ -5,9 +5,9 @@ import { argv } from 'process';
 async function tellMeWho(dirPath){
 
     const content = readdir(dirPath, 'utf-8')
-    split.sort()
+    content.sort()
 
-    split.forEach((file, index) => {
+    content.forEach((file, index) => {
         console.log(`${index+1}. ${file}`)
     });
 }
