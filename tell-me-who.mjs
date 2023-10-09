@@ -2,15 +2,6 @@
 import {readdir} from 'fs/promises'
 import { argv } from 'process';
 
-function sortName(a, b) {
-    // Divisez chaque chaîne en mots
-    const prenomA = a.split(" ")[0];
-    const prenomB = b.split(" ")[0];
-  
-    // Comparez les prénoms de manière insensible à la casse
-    return prenomA.localeCompare(prenomB, undefined, { sensitivity: 'base' });
-  }
-
 
 async function tellMeWho(dirPath){
 
@@ -23,7 +14,7 @@ async function tellMeWho(dirPath){
             const split2 = fileName.split('_')
             array.push(split2)
         });
-        array.sort(sortName)
+        array.sort((a, b) => {if ( a[1] < b[1] ){ return -1; } if ( a[1] > b[1] ){ return 1; } return 0; })
     
         array.forEach((value, index) => {
             console.log(`${index+1}. ${value[1]} ${value[0]}`)
