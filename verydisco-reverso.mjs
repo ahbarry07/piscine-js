@@ -15,9 +15,9 @@ const transfrom = (word) => {
     return newWord
 }
 
-argv.forEach((val, index) => {
+argv.forEach(async(val, index) => {
     if (index === 2) {
-        let data =  readFile(val, 'utf-8')
+        let data = await readFile(val, 'utf-8')
         let parts = data.split(' ')
         parts.forEach((value) => {
             finalWord.push(transfrom(value))
