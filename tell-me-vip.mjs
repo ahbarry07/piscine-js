@@ -1,8 +1,9 @@
-import { readFile, readdir } from 'fs/promises';
+import { readFile, readdir, writeFile } from 'fs/promises';
 
 const regexp = /^OUI$/;
 
 async function tellMeVip(dirPath) {
+    let array = []
   try {
     const fileNames = await readdir(dirPath, 'utf-8');
     const contents = await Promise.all(
@@ -16,8 +17,16 @@ async function tellMeVip(dirPath) {
       const lines = content.split('\n');
       const yesLines = lines.filter((line) => regexp.test(line));
       yesLines.forEach((line) => {
-        console.log(`${index + 1}. ${line}`);
+        const split1 =line.split('.')
+        const name = split1[0]
+        const split2 = name.split('_')
+        array.push(split2)
+       
       });
+      array.sort((a, b) => {if ( a[1] < b[1] ){ return -1; } if ( a[1] > b[1] ){ return 1; } return 0; })
+    });
+    array.forEach((val, index) => {
+        writeFile('vip.txt', `${index+1}. ${value[1]} ${value[0]}`)
     });
   } catch (error) {
     console.error('Error:', error);
