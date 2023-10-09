@@ -1,6 +1,4 @@
-import { sign } from 'node:crypto';
 import { argv } from 'node:process'
-import { workerData } from 'node:worker_threads';
 let finalWord = []
 const transfrom = (word) => {
     let newWord = ""
