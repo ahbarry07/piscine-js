@@ -1,17 +1,27 @@
-import {readFile, readdir} from 'fs/promises'
+import { readFile, readdir } from 'fs/promises';
 
-const regexp = /^OUI$/
-function tellMeVip(dirPath){
-    const files = readdir(dirPath, 'utf-8')
-    files.then((fileNames) =>{
-        const content = readFile(fileNames, 'utf-8')
-        content.then((data) =>{
-            let yes = data.filter((value) => regexp.test(value))
-            yes.forEach((val, index) =>{
-                console.log(`${index+1}. ${val}`)
-            })
-        })
-    })
+const regexp = /^OUI$/;
+
+async function tellMeVip(dirPath) {
+  try {
+    const fileNames = await readdir(dirPath, 'utf-8');
+    const contents = await Promise.all(
+      fileNames.map(async (fileName) => {
+        const data = await readFile(fileName, 'utf-8');
+        return data;
+      })
+    );
+
+    contents.forEach((content, index) => {
+      const lines = content.split('\n');
+      const yesLines = lines.filter((line) => regexp.test(line));
+      yesLines.forEach((line) => {
+        console.log(`${index + 1}. ${line}`);
+      });
+    });
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }
 
-tellMeVip(process.argv[2])
+tellMeVip(process.argv[2]);
