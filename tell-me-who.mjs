@@ -5,7 +5,7 @@ import { argv } from 'process';
 async function tellMeWho(dirPath){
 
     let array = []
-    const content = readdir(dirPath, 'utf-8')
+    const content = readdir(dirPath)
    
     content.forEach(file => {
         array.push(file)
