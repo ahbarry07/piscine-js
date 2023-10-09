@@ -21,3 +21,5 @@ function processArgument() {
   
     console.log(discoWords.join(" "));
 }
+
+processArgument()
