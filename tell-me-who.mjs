@@ -21,13 +21,12 @@ async function tellMeWho(dirPath){
             const split1 = file.split('.')
             const fileName = split1[0]
             const split2 = fileName.split('_')
-            const name =  `${split2[0]} ${split2[1]}`
-            array.push(name)
+            array.push(split2)
         });
         array.sort(sortName)
     
         array.forEach((value, index) => {
-            console.log(`${index+1}. ${value}`)
+            console.log(`${index+1}. ${value[1]} ${value[0]}`)
         });
     })
 }
