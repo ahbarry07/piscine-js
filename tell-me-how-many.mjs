@@ -3,8 +3,9 @@ import {readdir} from 'fs/promises'
 
 function tellMeHowMany(path){
 
-    let contennt = readdir(path, 'utf-8')
-    return contennt.length
+    let content = readdir(path, 'utf-8')
+    console.log(content)
+    return content.length
 }
 
 if (argv.length === 0){
