@@ -30,6 +30,7 @@ function readAndTransform(filename){
 
 argv.forEach((val, index) => {
     if (index === 2) {
+        console.log(readAndTransform(val))
         let content = readAndTransform(val)
         let parts = content.split(' ')
         parts.forEach((value) => {
