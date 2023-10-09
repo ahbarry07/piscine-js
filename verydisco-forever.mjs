@@ -1,6 +1,6 @@
-import { sign } from 'node:crypto';
+// import { sign } from 'node:crypto';
 import { argv } from 'node:process'
-import { workerData } from 'node:worker_threads';
+// import { workerData } from 'node:worker_threads';
 import { writeFile } from 'fs/promises';
 
 let contenu 
@@ -24,21 +24,21 @@ argv.forEach((val, index) => {
             finalWord.push(transfrom(value))
         })
         contenu = finalWord.join(' ')
-        // console.log(finalWord.join(' '))
+        writeFile('verydisco-forever.txt', contenu);
     }
 })
 
 
-async function veryDiscoForever() {
-  try {
-    // Écrire le contenu dans un fichier
-    await fs.writeFile('verydisco-forever.txt', contenu);
-  } catch (err) {
-    console.error("Erreur lors de l'écriture dans verydisco-forever.txt : ", err);
-  }
-}
+// async function veryDiscoForever() {
+//   try {
+//     // Écrire le contenu dans un fichier
+//     await fs.writeFile('verydisco-forever.txt', contenu);
+//   } catch (err) {
+//     console.error("Erreur lors de l'écriture dans verydisco-forever.txt : ", err);
+//   }
+// }
 
-veryDiscoForever();
+// veryDiscoForever();
 
 // Erreur : code déjà échoué lors de la validation 67caa7d Sortie
 // précédente : échec du test n°1 : async ({ ctx, eq }) => {
