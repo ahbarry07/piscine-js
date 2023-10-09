@@ -4,12 +4,16 @@ import { argv } from 'process';
 
 async function tellMeWho(dirPath){
 
+    let array = []
     const content = readdir(dirPath, 'utf-8')
-    console.log(content)
-    content.sort()
+   
+    content.forEach(file => {
+        array.push(file)
+    });
+    array.sort()
 
-    content.forEach((file, index) => {
-        console.log(`${index+1}. ${file}`)
+    array.forEach((value, index) => {
+        console.log(`${index+1}. ${value}`)
     });
 }
 
