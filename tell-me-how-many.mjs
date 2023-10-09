@@ -11,7 +11,7 @@ if (argv.length === 0){
     const currentRepetory = __dirname
     console.log(tellMeHowMany(currentRepetory))
 }else{
-    argv.forEach(index, val => {
+    argv.forEach((val, index) => {
         if (index === 2){
             console.log(tellMeHowMany(val))
         }
