@@ -11,7 +11,7 @@ async function tellMeWho(dirPath){
             const split1 = file.split('.')
             const fileName = split1[0]
             const split2 = fileName.split('_')
-            const name =  split2[0].concat(split2[1])
+            const name =  `${split2[0]} ${split2[1]}`
             array.push(name)
         });
         array.sort()
