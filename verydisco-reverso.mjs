@@ -5,7 +5,7 @@ import { readFile } from 'fs/promises';
 let finalWord = []
 const transfrom = (word) => {
     let newWord = ""
-    let sizing = (Math.round(word.length/2))
+    let sizing = (Math.floor(word.length/2))
     for (let i = sizing; i < word.length; i++) {
         newWord += word[i]
     }
