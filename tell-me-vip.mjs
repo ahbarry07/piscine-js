@@ -26,7 +26,7 @@ async function tellMeVip(dirPath) {
       array.sort((a, b) => {if ( a[1] < b[1] ){ return -1; } if ( a[1] > b[1] ){ return 1; } return 0; })
     });
     array.forEach((val, index) => {
-        writeFile('vip.txt', `${index+1}. ${value[1]} ${value[0]}`)
+        writeFile('vip.txt', `${index+1}. ${val[1]} ${val[0]}`)
     });
   } catch (error) {
     console.error('Error:', error);
