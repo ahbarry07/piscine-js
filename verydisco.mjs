@@ -1,27 +1,24 @@
-#!/usr/bin/env node
-
-// Fonction pour rendre un mot "very disco"
-function makeWordVeryDisco(word) {
-    const length = word.length;
-    const middle = Math.ceil(length / 2);
-    const firstHalf = word.slice(0, middle);
-    const secondHalf = word.slice(middle);
-    return secondHalf + firstHalf;
-  }
-  
-  // Fonction pour traiter l'argument de ligne de commande
-  function processArgument() {
-    const args = process.argv.slice(2);
-    if (args.length === 0) {
-      console.log("Veuillez fournir un argument.");
-      return;
+import { sign } from 'node:crypto';
+import { argv } from 'node:process'
+import { workerData } from 'node:worker_threads';
+let finalWord = []
+const transfrom = (word) => {
+    let newWord = ""
+    let sizing = (Math.round(word.length/2))
+    for (let i = sizing; i < word.length; i++) {
+        newWord += word[i]
     }
-  
-    const discoWords = args.map(word => makeWordVeryDisco(word)).join(" ");
-  
-    console.log(discoWords);
-  }
-  
-  // Appeler la fonction pour traiter l'argument
-  processArgument();
-  
+    for (let j = 0; j < sizing; j++) {
+        newWord += word[j]
+    }
+    return newWord
+}
+argv.forEach((val, index) => {
+    if (index === 2) {
+        let parts = val.split(' ')
+        parts.forEach((value) => {
+            finalWord.push(transfrom(value))
+        })
+        console.log(finalWord.join(' '))
+    }
+})
