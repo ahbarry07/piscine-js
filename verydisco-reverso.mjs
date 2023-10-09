@@ -22,6 +22,7 @@ function readAndTransform(filename){
             console.error('Erreur lors de la lecture du fichier')
             return
         }
+        console.log(data)
         return (transfrom(data))
     })
 }
