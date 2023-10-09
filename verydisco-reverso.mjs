@@ -16,14 +16,15 @@ const transfrom = (word) => {
 }
 
 function readAndTransform(filename){
-
+    let result 
     readFile(filename, 'utf-8', (err, data) =>{
         if (err) {
             console.error('Erreur lors de la lecture du fichier')
             return
         }
-        return data
+       result = data
     })
+    return result
 }
 
 
