@@ -22,15 +22,13 @@ function readAndTransform(filename){
             console.error('Erreur lors de la lecture du fichier')
             return
         }
-        console.log(data)
-        return (transfrom(data))
+        return data
     })
 }
 
 
 argv.forEach((val, index) => {
     if (index === 2) {
-        console.log(readAndTransform(val))
         let content = readAndTransform(val)
         let parts = content.split(' ')
         parts.forEach((value) => {
