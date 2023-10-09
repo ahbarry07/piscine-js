@@ -32,10 +32,15 @@ argv.forEach((val, index) => {
 async function veryDiscoForever() {
   try {
     // Écrire le contenu dans un fichier
-    await fs.writeFile('/piscine-js/verydisco-forever.txt', contenu);
+    await fs.writeFile('verydisco-forever.txt', contenu);
   } catch (err) {
     console.error("Erreur lors de l'écriture dans verydisco-forever.txt : ", err);
   }
 }
 
 veryDiscoForever();
+
+// Erreur : code déjà échoué lors de la validation 67caa7d Sortie
+// précédente : échec du test n°1 : async ({ ctx, eq }) => {
+// const { data } = wait ctx.run(`discovery`) return eq(data, 'verydisco') 
+// } Erreur : ENOENT : aucun fichier ou répertoire de ce type, ouvrez 'verydisco-forever.txt'
