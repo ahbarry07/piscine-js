@@ -15,23 +15,10 @@ const transfrom = (word) => {
     return newWord
 }
 
-function readAndTransform(filename){
-    let result 
-    readFile(filename, 'utf-8', (err, data) =>{
-        if (err) {
-            console.error('Erreur lors de la lecture du fichier')
-            return
-        }
-       result = data
-    })
-    return result
-}
-
-
 argv.forEach((val, index) => {
     if (index === 2) {
-        let content = readAndTransform(val)
-        let parts = content.split(' ')
+        let data =  readFile(val, 'utf-8')
+        let parts = data.split(' ')
         parts.forEach((value) => {
             finalWord.push(transfrom(value))
         })
