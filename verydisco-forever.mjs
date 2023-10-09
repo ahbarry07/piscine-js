@@ -1,7 +1,8 @@
 import { sign } from 'node:crypto';
 import { argv } from 'node:process'
 import { workerData } from 'node:worker_threads';
-const fs = require('fs').promises;
+import { writeFile } from 'fs/promises';
+
 let contenu 
 
 let finalWord = []
