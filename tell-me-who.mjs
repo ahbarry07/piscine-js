@@ -8,7 +8,11 @@ async function tellMeWho(dirPath){
     const content = readdir(dirPath)
     content.then((data) =>{
         data.forEach(file => {
-            array.push(file)
+            const split1 = file.split('.')
+            const fileName = split1[0]
+            const split2 = fileName.split('_')
+            const name =  split2[0].concat(split2[1])
+            array.push(name)
         });
         array.sort()
     
