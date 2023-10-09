@@ -1,23 +1,19 @@
-function makeWordVeryDisco(word) {
+const argument = process.argv[1];
+
+// Very disco the argument
+function veryDisco(argument) {
+  // Split the argument into words
+  const words = argument.split(' ');
+
+  // For each word, cut it in half
+  const veryDiscoWords = words.map(word => {
     const length = word.length;
-    const middle = Math.ceil(length / 2);
-    const firstHalf = word.slice(0, middle);
-    const secondHalf = word.slice(middle);
-    return secondHalf + firstHalf;
-  }
-  
-  // Fonction pour traiter l'argument de ligne de commande
-  function processArgument() {
-    const args = process.argv.slice(2);
-    if (args.length === 0) {
-      console.log("Veuillez fournir un argument.");
-      return;
-    }
-  
-    const discoWords = args.map(word => makeWordVeryDisco(word)).join(" ");
-  
-    console.log(discoWords);
-  }
-  
-  // Appeler la fonction pour traiter l'argument
-  processArgument();
+    const halfLength = Math.floor(length / 2);
+    const firstChunk = word.slice(0, halfLength);
+    const secondChunk = word.slice(halfLength);
+    return secondChunk + firstChunk;
+  });
+
+  // Join the very disco words back together
+  return veryDiscoWords.join(' ');
+}
