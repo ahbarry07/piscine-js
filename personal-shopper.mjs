@@ -1,4 +1,4 @@
-import { readFile, writeFile, writeFileSync, readFileSync} from 'fs/promises';
+import { readFile, writeFile, writeFileSync} from 'fs/promises';
 import { argv } from 'process';
 
 const personalShopper = (fileName, command, elem, quantity) => {
@@ -10,7 +10,7 @@ const personalShopper = (fileName, command, elem, quantity) => {
     }
 
     // Read the file contents
-    const fileContents = readFileSync(filePath, 'utf8');
+    const fileContents = readFile(filePath, 'utf8');
     const shoppingList = JSON.parse(fileContents);
 
     // Execute the command
