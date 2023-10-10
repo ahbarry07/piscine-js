@@ -1,4 +1,5 @@
 import { readFile, writeFile, unlink } from 'fs/promises';
+import { argv } from 'process';
 
 // Fonction pour lire le contenu du fichier JSON
 async function readShoppingList(filePath) {
@@ -84,19 +85,19 @@ async function manageShoppingList(filePath, command, elem, num = 1) {
 }
 
 // Récupérer les arguments de la ligne de commande
-const args = process.argv.slice(2);
-const filePath = args[0];
+// const args = process.argv.slice(2);
+const filePath = argv[1];
 
 // Vérifier s'il y a suffisamment d'arguments
-if (args.length < 2) {
+if (argv.length < 2) {
     console.error('Erreur : Argument(s) manquant(s). Utilisez "help" pour voir la liste des commandes disponibles.');
     process.exit(1);
 }
 
 // Extraire la commande et les arguments
-const command = args[1];
-const elem = args[2];
-const num = parseInt(args[3]);
+const command = argv[2];
+const elem = argv[3];
+const num = parseInt(argv[4]);
 
 // Gérer la liste de courses en fonction de la commande
 manageShoppingList(filePath, command, elem, num);
