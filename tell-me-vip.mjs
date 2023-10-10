@@ -19,7 +19,7 @@ for (const value of file) {
 let listGuest = []
 
 listAgreed.forEach(async element => {
-    element = element.replace('.json', '').split('_')
+    element = element.split('.')[0].split('_')
     listGuest.push(element)
 });
 
