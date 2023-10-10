@@ -6,16 +6,11 @@ async function tellMeVip(dirPath) {
     let array = []
     let result = []
     const fileNames = await readdir(dirPath, 'utf-8');
-    const contents = await Promise.all(
-      fileNames.map(async (fileName) => {
-        const data = await readFile(fileName, 'utf-8');
-        return data;
-      })
-    );
 
-    contents.forEach(content => {
+    fileNames.forEach(content => {
       const lines = content.split('\n');
-      const yesLines = lines.answer.filter((line) => regexp.test(line));
+      let contentLine = readFile(lines)
+      const yesLines = contentLine.filter((line) => regexp.test(line));
       yesLines.forEach((line) => {
         const split1 =line.split('.')
         const name = split1[0]
