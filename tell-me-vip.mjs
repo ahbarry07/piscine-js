@@ -13,9 +13,9 @@ async function tellMeVip(dirPath) {
       })
     );
 
-    contents.forEach((content, index) => {
+    contents.forEach(content => {
       const lines = content.split('\n');
-      const yesLines = lines.filter((line) => regexp.test(line));
+      const yesLines = lines.answer.filter((line) => regexp.test(line));
       yesLines.forEach((line) => {
         const split1 =line.split('.')
         const name = split1[0]
