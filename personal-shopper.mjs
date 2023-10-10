@@ -86,7 +86,7 @@ async function manageShoppingList(filePath, command, elem, num = 1) {
 
 // Récupérer les arguments de la ligne de commande
 // const args = process.argv.slice(2);
-const filePath = argv[1];
+const filePath = argv[2];
 
 // Vérifier s'il y a suffisamment d'arguments
 if (argv.length < 2) {
@@ -95,9 +95,9 @@ if (argv.length < 2) {
 }
 
 // Extraire la commande et les arguments
-const command = argv[2];
-const elem = argv[3];
-const num = parseInt(argv[4]);
+const command = argv[3];
+const elem = argv[4];
+const num = parseInt(argv[5]);
 
 // Gérer la liste de courses en fonction de la commande
 manageShoppingList(filePath, command, elem, num);
