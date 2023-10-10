@@ -1,85 +1,166 @@
-import { readFile, writeFile} from 'fs/promises';
-import { argv } from 'process';
+import { argv, stderr } from 'node:process';
+import fs from 'fs/promises';
 
-const personalShopper = (fileName, command, elem, quantity) => {
-    const filePath = `./${fileName}`;
+async function main() {
+  const shoppingListFile = argv[2];
 
-    // Create the file if it doesn't exist
-    if (command === 'create') {
-        writeFile(filePath, '{}');
-    }
+  if (!shoppingListFile) {
+    stderr.write('Please provide a shopping list file.\n');
+    process.exit(1);
+  }
 
-    // Read the file contents
-    const fileContents = readFile(filePath, 'utf8');
-    const shoppingList = JSON.parse(fileContents);
+  let shoppingListData = {};
 
-    // Execute the command
-    switch (command) {
-        case 'add':
-            if (!elem) {
-                console.error('No elem specified.');
-                return;
+  if (argv.length === 3) {
+    await displayHelp();
+  } else if (argv.length >= 4) {
+    switch (argv[3]) {
+      case 'create':
+        try {
+          await createFile(shoppingListFile);
+        } catch (e) {
+          stderr.write('');
+        }
+        break;
+
+      case 'delete':
+        try {
+          await deleteFile(shoppingListFile);
+        } catch (e) {
+          process.exit(0);
+        }
+        break;
+
+      case 'add':
+        if (argv.length < 5) {
+          stderr.write('No elem specified.\n');
+        } else {
+          try {
+            const itemName = argv[4];
+            let quantity = 1;
+
+            if (!isNaN(argv[5])) {
+              quantity = Number(argv[5]);
             }
 
-            if (shoppingList[elem]) {
-                shoppingList[elem] += quantity || 1;
+            shoppingListData = await readShoppingListFile(shoppingListFile);
+
+            if (shoppingListData.hasOwnProperty(itemName)) {
+              shoppingListData[itemName] += quantity;
             } else {
-                shoppingList[elem] = quantity || 1;
+              shoppingListData[itemName] = quantity;
             }
 
-            break;
-        case 'rm':
-            if (!elem) {
-                console.error('No elem specified.');
-                return;
+            if (shoppingListData[itemName] <= 0) {
+              delete shoppingListData[itemName];
             }
 
-            if (shoppingList[elem]) {
-                if (quantity) {
-                    shoppingList[elem] -= quantity;
+            await writeShoppingListFile(shoppingListFile, shoppingListData);
+          } catch (err) {}
+        }
+        break;
 
-                    if (shoppingList[elem] <= 0) {
-                        delete shoppingList[elem];
-                    }
-                } else {
-                    delete shoppingList[elem];
-                }
+      case 'rm':
+        if (argv.length < 5) {
+          stderr.write('No elem specified.\n');
+        } else {
+          try {
+            const itemName = argv[4];
+            let quantity = 0;
+
+            if (!isNaN(argv[5])) {
+              quantity = Number(argv[5]);
             }
 
-            break;
-        case 'ls':
-            if (Object.keys(shoppingList).length === 0) {
-                console.log('Empty list.');
-                return;
+            shoppingListData = await readShoppingListFile(shoppingListFile);
+
+            if (shoppingListData.hasOwnProperty(itemName)) {
+              if (argv.length < 6) {
+                delete shoppingListData[itemName];
+              } else {
+                shoppingListData[itemName] -= quantity;
+              }
+            } else {
+              shoppingListData[itemName] = quantity;
             }
 
-            for (const [key, value] of Object.entries(shoppingList)) {
-                console.log(`- ${key} (${value})`);
+            if (shoppingListData[itemName] === 0) {
+              delete shoppingListData[itemName];
             }
 
-            break;
-        case 'help':
-            console.log('Commands:');
-            console.log('  - create: takes a filename as argument and create it (should have `.json` extension specified)');
-            console.log('  - delete: takes a filename as argument and delete it');
-            console.log('  - add: takes an element name as argument and add it to the shopping list');
-            console.log('  - rm: takes an element name as argument and remove it from the shopping list');
-            console.log('  - ls: list the shopping list');
-            console.log('  - help: print this help message');
+            if (shoppingListData[itemName] < 0) {
+              shoppingListData[itemName] = Math.abs(shoppingListData[itemName]);
+            }
 
-            break;
-        default:
-            console.log('Invalid command.');
-            return;
+            await writeShoppingListFile(shoppingListFile, shoppingListData);
+          } catch (err) {}
+        }
+        break;
+
+      case 'help':
+        await displayHelp();
+        break;
+
+      case 'ls':
+        shoppingListData = await readShoppingListFile(shoppingListFile);
+
+        if (Object.entries(shoppingListData).length === 0) {
+          console.log('Empty list.');
+        } else {
+          let listing = Object.entries(shoppingListData);
+
+          for (const [key, value] of listing) {
+            console.log(`- ${key} (${value})`);
+          }
+        }
+        break;
+
+      default:
+        stderr.write('Invalid command. Use "help" to see available commands.\n');
     }
+  }
+}
 
-    // Write the file back to disk
-    writeFile(filePath, JSON.stringify(shoppingList, null, 2));
-};
+async function displayHelp() {
+  console.log('Commands:');
+  console.log('- create: takes a filename as argument and create it (should have `.json` extension specified');
+  console.log('- delete: takes a filename as argument and delete it');
+  console.log('- add: takes a filename as argument and add a new element to the list in the file');
+  console.log('- rm: takes a filename as argument and remove an element from the list in the file');
+  console.log('- help: print all the command lines available');
+  console.log('- ls: takes a filename as first argument and print the list in the console');
+}
 
-const fileName = process.argv[2];
-const command = process.argv[3];
-const elem = process.argv[4];
-const quantity = Number(process.argv[5]);
+async function createFile(fileName) {
+  try {
+    await fs.writeFile(fileName, '{}');
+  } catch (e) {
+    stderr.write('');
+  }
+}
 
-personalShopper(fileName, command, elem, quantity);
+async function deleteFile(fileName) {
+  try {
+    await fs.unlink(fileName);
+  } catch (e) {
+    process.exit(0);
+  }
+}
+
+async function readShoppingListFile(fileName) {
+  try {
+    const data = await fs.readFile(fileName, 'utf-8');
+    return JSON.parse(data);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return {};
+    }
+    process.exit(1);
+  }
+}
+
+async function writeShoppingListFile(fileName, data) {
+  await fs.writeFile(fileName, JSON.stringify(data, null, 2));
+}
+
+main();
