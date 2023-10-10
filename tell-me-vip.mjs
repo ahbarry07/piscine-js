@@ -4,6 +4,7 @@ const regexp = /^YES$/;
 
 async function tellMeVip(dirPath) {
     let array = []
+    let result = []
     const fileNames = await readdir(dirPath, 'utf-8');
     const contents = await Promise.all(
       fileNames.map(async (fileName) => {
@@ -24,10 +25,11 @@ async function tellMeVip(dirPath) {
       });
       array.sort((a, b) => {if ( a[1] < b[1] ){ return -1; } if ( a[1] > b[1] ){ return 1; } return 0; })
     });
+
     array.forEach((val, index) => {
-        writeFile('vip.txt', `${index+1}. ${val[1]} ${val[0]}`)
+       result.push(`${index+1}. ${val[1]} ${val[0]}\n`)
     });
- 
+    writeFile('vip.txt', result.join('\n'))
 }
 
 tellMeVip(process.argv[2]);
