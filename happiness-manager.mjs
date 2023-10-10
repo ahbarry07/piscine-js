@@ -1,96 +1,127 @@
+import { argv, argv0, stderr } from 'node:process'
 import fs from 'fs/promises';
-
-async function main() {
-  try {
-    const guestDirectory = process.argv[2];
-    const shoppingListFile = process.argv[3];
-
-    if (!guestDirectory || !shoppingListFile) {
-      console.log('Veuillez fournir le répertoire des invités et le fichier de liste de courses.');
-      return;
-    }
-
-    const guestFiles = await fs.readdir(guestDirectory);
-    const agreedGuests = await getAgreedGuests(guestFiles, guestDirectory);
-
-    if (agreedGuests.length === 0) {
-      console.log('Personne ne vient.');
-      return;
-    }
-
-    const shoppingList = createShoppingList(agreedGuests);
-
-    await saveShoppingList(shoppingList, shoppingListFile);
-
-    console.log('Liste de courses mise à jour avec succès.');
-  } catch (error) {
-    console.error('Erreur :', error);
-  }
+let pathToDirectory = '.'
+let file
+let shoppingList = {}
+if (argv.length === 2) {
+    file = await fs.readdir(pathToDirectory)
+} else if (argv.length >= 3) {
+    pathToDirectory = argv[2]
+    file = await fs.readdir(pathToDirectory)
 }
-
-async function getAgreedGuests(guestFiles, guestDirectory) {
-  const agreedGuests = [];
-
-  for (const guestFile of guestFiles) {
+let listAgreed = []
+for (const value of file) {
+    try{
+        let guestInvitation = pathToDirectory + '/' + value
+        let guestAnswer = await fs.readFile(guestInvitation)
+        let toObject = JSON.parse(guestAnswer)
+        if (toObject.answer === 'yes') {
+            listAgreed.push(toObject)
+        }
+    }catch (e) {}
+}
+if (listAgreed.length === 0) {
+    console.log('No one is coming.')
+} else {
+    let drinks = {}
+    let foods = {}
+    for (let i = 0; i < listAgreed.length; i++) {
+        if (drinks.hasOwnProperty(listAgreed[i]['drink'])) {
+            drinks[listAgreed[i]['drink']] += 1
+        } else {
+            drinks[`${listAgreed[i]['drink']}`] = 1
+        }
+        if (foods.hasOwnProperty(listAgreed[i]['food'])) {
+            foods[listAgreed[i]['food']] += 1
+        } else {
+            foods[`${listAgreed[i]['food']}`] = 1
+        }
+    }
+    
+    for (const bottle in drinks) {
+        if (bottle === 'beer') { shoppingList['6-packs-beers'] = Math.ceil(drinks[bottle] / 6) } 
+        else if (bottle === 'wine') { shoppingList['wine-bottles'] = Math.ceil(drinks[bottle] / 4) }
+        else if (bottle === 'water') { shoppingList['water-bottles'] = Math.ceil(drinks[bottle] / 4) }
+        else if (bottle === 'soft') { shoppingList['soft-bottles'] = Math.ceil(drinks[bottle] / 4) }
+    }
+  
+    let potatoes = 0
+    let eggplants = 0
+    let mushrooms = 0
+    let hummus = 0
+    let courgettes = 0
+    for (const foodie in foods) {
+        potatoes += foods[foodie]
+        if (foodie === 'veggie' || foodie === 'vegan') {
+            eggplants += foods[foodie] / 3
+            mushrooms += foods[foodie]
+            hummus += foods[foodie] / 3
+            courgettes += foods[foodie] / 3
+          
+        } 
+        
+        else if (foodie === 'carnivore') { shoppingList['burgers'] = foods[foodie] }
+        else if (foodie === 'fish') { shoppingList['sardines'] = foods[foodie] }
+        else if (foodie === 'everything') { shoppingList['kebabs'] = foods[foodie] }
+        else if (foodie === 'candies') { shoppingList['candies'] = foods[foodie]}
+      
+    }
+    
+    if (eggplants !== 0)  { shoppingList['eggplants'] = Math.ceil(eggplants) }
+    if (mushrooms !== 0)  { shoppingList['mushrooms'] = Math.ceil(mushrooms)}
+    if (hummus !== 0)  { shoppingList['hummus'] = Math.ceil(hummus)}
+    if (courgettes !== 0)  { shoppingList['courgettes'] = Math.ceil(courgettes)}
+    if (potatoes !== 0) { shoppingList['potatoes'] = potatoes }
+    
+    (async () => {
+        const fileExists = await checkFileExists(argv[3]);
+        if (fileExists) {
+            await addObjectToFile(argv[3], shoppingList)
+        } else {
+            try { await fs.writeFile(argv[3], JSON.stringify(shoppingList, null, 2)) }
+            catch (e) { stderr.write('') }
+        }
+      })();
+}
+async function accessFile(fileName) {
     try {
-      const guestPath = `${guestDirectory}/${guestFile}`;
-      const guestData = await fs.readFile(guestPath, 'utf-8');
-      const guest = JSON.parse(guestData);
-
-      if (guest.answer === 'yes') {
-        agreedGuests.push(guest);
+      const data = await fs.readFile(fileName, 'utf-8');
+      return JSON.parse(data);
+    } catch (error) {
+      if (error.code === 'ENOENT') {
+        return {};
       }
-    } catch (error) {}
+      process.exit(1);
+    }
+}
+async function checkFileExists(filePath) {
+    try {
+      await fs.access(filePath);
+      return true; // File exists
+    } catch (error) {
+      if (error.code === 'ENOENT') {
+        return false; // File does not exist
+      }
+      throw error; // Other error occurred
+    }
   }
-
-  return agreedGuests;
-}
-
-function createShoppingList(agreedGuests) {
-  const shoppingList = {
-    '6-packs-beers': 0,
-    'wine-bottles': 0,
-    'water-bottles': 0,
-    'soft-bottles': 0,
-    'eggplants': 0,
-    'mushrooms': 0,
-    'hummus': 0,
-    'courgettes': 0,
-    'burgers': 0,
-    'sardines': 0,
-    'kebabs': 0,
-    'potatoes': agreedGuests.length,
-  };
-
-  agreedGuests.forEach((guest) => {
-    if (guest.drink && guest.drink !== 'no preference') {
-      const drinkCategory = guest.drink.toLowerCase();
-      shoppingList[`${drinkCategory}-bottles`] = (shoppingList[`${drinkCategory}-bottles`] || 0) + 1;
-    }
-
-    if (guest.food && guest.food !== 'no preference') {
-      const foodCategory = guest.food.toLowerCase();
-      if (foodCategory === 'veggie' || foodCategory === 'vegan') {
-        shoppingList['eggplants'] += 1 / 3;
-        shoppingList['mushrooms'] += 1;
-        shoppingList['hummus'] += 1 / 3;
-        shoppingList['courgettes'] += 1 / 3;
-      } else {
-        shoppingList[foodCategory] = (shoppingList[foodCategory] || 0) + 1;
-      }
-    }
-  });
-
-  return shoppingList;
-}
-
-async function saveShoppingList(shoppingList, shoppingListFile) {
+  async function addObjectToFile(filePath, newObject) {
   try {
-    const shoppingListData = JSON.stringify(shoppingList, null, 2);
-    await fs.writeFile(shoppingListFile, shoppingListData);
+    let existingObject = {}; // Initialize an empty object
+    
+    // Check if the file exists
+    const fileExists = await fs.access(filePath).then(() => true).catch(() => false);
+    // If the file exists, read its contents
+    if (fileExists) {
+      const existingData = await fs.readFile(filePath, 'utf-8');
+      existingObject = JSON.parse(existingData);
+    }
+    // Merge the existingObject with the newObject
+    Object.assign(existingObject, newObject);
+    // Write the updated object back to the file
+    await fs.writeFile(filePath, JSON.stringify(existingObject, null, 2));
+    console.log(`Object added to '${filePath}' successfully.`);
   } catch (error) {
-    throw error;
+    throw error; // Handle any errors that may occur
   }
 }
-
-main();
