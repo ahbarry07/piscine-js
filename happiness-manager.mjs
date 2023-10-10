@@ -1,97 +1,71 @@
+import { argv, argv0, stderr } from 'node:process';
 import fs from 'fs/promises';
 
-async function main() {
-  const guestDirectory = process.argv[2];
-  const shoppingListFile = process.argv[3];
+const getShoppingList = async (pathToDirectory) => {
+  const files = await fs.readdir(pathToDirectory);
+  const listAgreed = [];
 
-  if (!guestDirectory || !shoppingListFile) {
-    console.log('Please provide the guest directory and a shopping list file.');
-    return;
-  }
-
-  try {
-    const guestFiles = await fs.readdir(guestDirectory);
-    const agreedGuests = await getAgreedGuests(guestFiles, guestDirectory);
-
-    if (agreedGuests.length === 0) {
-      console.log('No one is coming.');
-      return;
-    }
-
-    const shoppingList = await createShoppingList(agreedGuests);
-
-    await saveShoppingList(shoppingList, shoppingListFile);
-
-    console.log('Shopping list updated successfully.');
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-async function getAgreedGuests(guestFiles, guestDirectory) {
-  const agreedGuests = [];
-
-  for (const guestFile of guestFiles) {
-    const guestPath = `${guestDirectory}/${guestFile}`;
+  for (const file of files) {
     try {
-      const guestData = await fs.readFile(guestPath, 'utf-8');
-      const guest = JSON.parse(guestData);
-      if (guest.answer === 'yes') {
-        agreedGuests.push(guest);
+      const guestInvitation = `${pathToDirectory}/${file}`;
+      const guestAnswer = await fs.readFile(guestInvitation);
+      const toObject = JSON.parse(guestAnswer);
+
+      if (toObject.answer === 'yes') {
+        listAgreed.push(toObject);
       }
-    } catch (error) {}
+    } catch (e) {
+      console.log(e);
+    }
   }
 
-  return agreedGuests;
-}
+  if (!listAgreed.length) {
+    return {};
+  }
 
-function createShoppingList(agreedGuests) {
+  const drinks = {};
+  const foods = {};
+
+  for (const guest of listAgreed) {
+    drinks[guest.drink] = Math.ceil(drinks[guest.drink] || 0) + 1;
+    foods[guest.food] = Math.ceil(foods[guest.food] || 0) + 1;
+  }
+
   const shoppingList = {
-    '6-packs-beers': 0,
-    'wine-bottles': 0,
-    'water-bottles': 0,
-    'soft-bottles': 0,
-    'eggplants': 0,
-    'mushrooms': 0,
-    'hummus': 0,
-    'courgettes': 0,
-    'burgers': 0,
-    'sardines': 0,
-    'kebabs': 0,
-    'potatoes': 0,
+    drinks: Object.keys(drinks).reduce((acc, drink) => ({
+      ...acc,
+      [drink]: drinks[drink] > 6 ? Math.ceil(drinks[drink] / 6) : drinks[drink],
+    }), {}),
+    foods: Object.keys(foods).reduce((acc, food) => ({
+      ...acc,
+      [food]: foods[food] > 3 ? Math.ceil(foods[food] / 3) : foods[food],
+    }), {}),
+    potatoes: listAgreed.length,
   };
 
-  agreedGuests.forEach((guest) => {
-    if (guest.drink && guest.drink !== 'no preference') {
-      const drinkCategory = guest.drink.toLowerCase();
-      shoppingList[`${drinkCategory}-bottles`] = (shoppingList[`${drinkCategory}-bottles`] || 0) + 1;
-    }
-
-    if (guest.food && guest.food !== 'no preference') {
-      const foodCategory = guest.food.toLowerCase();
-      if (foodCategory === 'veggie' || foodCategory === 'vegan') {
-        shoppingList['eggplants'] += 1 / 3;
-        shoppingList['mushrooms'] += 1;
-        shoppingList['hummus'] += 1 / 3;
-        shoppingList['courgettes'] += 1 / 3;
-      } else {
-        shoppingList[foodCategory] = (shoppingList[foodCategory] || 0) + 1;
-      }
-    }
-  });
-
-  shoppingList['potatoes'] = agreedGuests.length;
-
   return shoppingList;
-}
+};
 
-async function saveShoppingList(shoppingList, shoppingListFile) {
+const saveShoppingList = async (shoppingList, filePath) => {
   try {
-    const shoppingListData = JSON.stringify(shoppingList, null, 2);
-    await fs.writeFile(shoppingListFile, shoppingListData);
-  } catch (error) {
-    throw error;
+    await fs.writeFile(filePath, JSON.stringify(shoppingList, null, 2));
+  } catch (e) {
+    console.log(e);
+    stderr.write('');
   }
-}
+};
+
+const main = async () => {
+  const pathToDirectory = argv[2] || '.';
+  const filePath = argv[3];
+
+  const shoppingList = await getShoppingList(pathToDirectory);
+
+  if (!filePath) {
+    console.log(shoppingList);
+  } else {
+    await saveShoppingList(shoppingList, filePath);
+  }
+};
 
 main();
