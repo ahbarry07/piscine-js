@@ -1,91 +1,77 @@
-import fs from 'fs/promises';
-import path from 'path';
+import fs from 'fs';
 
-const guestDirectory = process.argv[2];
-const shoppingListFile = process.argv[3];
+const happinessManager = (guestDir, shoppingListFile) => {
+  // Read the guest directory
+  const guests = fs.readdirSync(guestDir);
 
-if (!guestDirectory || !shoppingListFile) {
-  console.log('Please provide the guest directory and a shopping list file.');
-  process.exit(1);
-}
+  // Filter out the non-VIP guests
+  const vipGuests = guests.filter((guest) => guest.includes('vip'));
 
-const shoppingList = {
-  '6-packs-beers': 0,
-  'wine-bottles': 0,
-  'water-bottles': 0,
-  'soft-bottles': 0,
-  'eggplants': 0,
-  'mushrooms': 0,
-  'hummus': 0,
-  'courgettes': 0,
-  'burgers': 0,
-  'sardines': 0,
-  'kebabs': 0,
-  'potatoes': 0,
+  // Check if there are any VIP guests
+  if (vipGuests.length === 0) {
+    console.log('No one is coming.');
+    return;
+  }
+
+  // Create an empty shopping list
+  const shoppingList = {};
+
+  // Iterate over the VIP guests and add their drink and food choices to the shopping list
+  for (const vipGuest of vipGuests) {
+    // Read the VIP guest's answers file
+    const vipGuestAnswers = fs.readFileSync(`${guestDir}/${vipGuest}/answers.json`, 'utf8');
+    const vipGuestData = JSON.parse(vipGuestAnswers);
+
+    // Add the VIP guest's drink choice to the shopping list
+    const drinkChoice = vipGuestData.drink;
+    const drinkQuantity = Math.ceil(vipGuests.length / 6);
+
+    if (drinkChoice === 'beers') {
+      shoppingList['6-packs-beers'] = drinkQuantity;
+    } else if (drinkChoice === 'water' || drinkChoice === 'wine' || drinkChoice === 'softs') {
+      shoppingList[`${drinkChoice}-bottles`] = Math.ceil(vipGuests.length / 4);
+    }
+
+    // Add the VIP guest's food choice to the shopping list
+    const foodChoice = vipGuestData.food;
+    const foodQuantity = vipGuests.length;
+
+    if (foodChoice === 'veggies and vegans') {
+      shoppingList['eggplants'] = foodQuantity;
+      shoppingList['mushrooms'] = foodQuantity;
+      shoppingList['hummus'] = foodQuantity;
+      shoppingList['courgettes'] = foodQuantity;
+    } else if (foodChoice === 'carnivores') {
+      shoppingList['burgers'] = foodQuantity;
+    } else if (foodChoice === 'fish lovers') {
+      shoppingList['sardines'] = foodQuantity;
+    } else if (foodChoice === 'omnivores') {
+      shoppingList['kebabs'] = foodQuantity;
+    }
+  }
+
+  // Add potatoes to the shopping list
+  shoppingList['potatoes'] = vipGuests.length;
+
+  // Write the shopping list to the file
+  fs.writeFileSync(shoppingListFile, JSON.stringify(shoppingList, null, 2));
 };
 
-(async () => {
-  try {
-    const guests = await readGuestDirectory(guestDirectory);
+const guestDir = process.argv[2];
+const shoppingListFile = process.argv[3];
 
-    if (guests.length === 0) {
-      console.log('No one is coming.');
-      return;
-    }
+happinessManager(guestDir, shoppingListFile);
 
-    for (const guest of guests) {
-      if (guest.wantToDrink && guest.drink) {
-        const drinkCategory = guest.drink.toLowerCase();
-        if (drinkCategory !== 'no preference') {
-          shoppingList[`${drinkCategory}-bottles`] += 1;
-        }
-      }
-
-      if (guest.wantToEat && guest.food) {
-        const foodCategory = guest.food.toLowerCase();
-        if (foodCategory !== 'no preference') {
-          shoppingList[foodCategory] += 1;
-        }
-      }
-    }
-
-    await updateOrCreateShoppingList(shoppingListFile, shoppingList);
-    console.log('Shopping list updated successfully.');
-  } catch (err) {
-    console.error(err.message);
-    process.exit(1);
+const shoppingList= {
+    "6-packs-beers": 2,
+    "water-bottles": 1,
+    "wine-bottles": 1,
+    "eggplants": 3,
+    "mushrooms": 3,
+    "hummus": 3,
+    "courgettes": 3,
+    "burgers": 3,
+    "sardines": 3,
+    "kebabs": 3,
+    "potatoes": 3
   }
-})();
-
-async function readGuestDirectory(directory) {
-  const guests = [];
-  try {
-    const files = await fs.readdir(directory);
-    for (const file of files) {
-      const filePath = path.join(directory, file);
-      const data = await fs.readFile(filePath, 'utf-8');
-      const guestInfo = JSON.parse(data);
-      guests.push(guestInfo);
-    }
-  } catch (err) {
-    console.error(err.message);
-  }
-  return guests.filter((guest) => guest.isVIP && guest.isVIP.toLowerCase() === 'yes');
-}
-
-async function updateOrCreateShoppingList(filePath, shoppingListData) {
-  let existingData = {};
-
-  try {
-    if (await fs.access(filePath)) {
-      const data = await fs.readFile(filePath, 'utf-8');
-      existingData = JSON.parse(data);
-    }
-  } catch (err) {
-    console.error(err.message);
-  }
-
-  const updatedShoppingList = { ...existingData, ...shoppingListData };
-
-  await fs.writeFile(filePath, JSON.stringify(updatedShoppingList, null, 2));
-}
