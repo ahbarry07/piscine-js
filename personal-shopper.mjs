@@ -1,16 +1,16 @@
-import { readFile, writeFile } from 'fs/promises';
+import { readFile, writeFile, writeFileSync, readFileSync} from 'fs/promises';
 import { argv } from 'process';
 
 const personalShopper = (fileName, command, elem, quantity) => {
     const filePath = `./${fileName}`;
 
     // Create the file if it doesn't exist
-    if (!fs.existsSync(filePath) && command === 'create') {
-        fs.writeFileSync(filePath, '{}');
+    if (!existsSync(filePath) && command === 'create') {
+        writeFileSync(filePath, '{}');
     }
 
     // Read the file contents
-    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const fileContents = readFileSync(filePath, 'utf8');
     const shoppingList = JSON.parse(fileContents);
 
     // Execute the command
@@ -74,7 +74,7 @@ const personalShopper = (fileName, command, elem, quantity) => {
     }
 
     // Write the file back to disk
-    fs.writeFileSync(filePath, JSON.stringify(shoppingList, null, 2));
+    writeFileSync(filePath, JSON.stringify(shoppingList, null, 2));
 };
 
 const fileName = process.argv[2];
