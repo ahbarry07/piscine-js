@@ -85,9 +85,8 @@ async function manageShoppingList(filePath, command, elem, num = 1) {
 }
 
 // Récupérer les arguments de la ligne de commande
-// const args = process.argv.slice(2);
 const filePath = process.argv[2];
-
+console.log(filePath)
 // Vérifier s'il y a suffisamment d'arguments
 if (process.argv.length < 3) {
     console.error('Erreur :No elem specified.');
