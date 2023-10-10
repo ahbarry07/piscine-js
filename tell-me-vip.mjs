@@ -1,10 +1,9 @@
 import { readFile, readdir, writeFile } from 'fs/promises';
 
-const regexp = /^OUI$/;
+const regexp = /^YES$/;
 
 async function tellMeVip(dirPath) {
     let array = []
-  try {
     const fileNames = await readdir(dirPath, 'utf-8');
     const contents = await Promise.all(
       fileNames.map(async (fileName) => {
@@ -28,9 +27,7 @@ async function tellMeVip(dirPath) {
     array.forEach((val, index) => {
         writeFile('vip.txt', `${index+1}. ${val[1]} ${val[0]}`)
     });
-  } catch (error) {
-    console.error('Error:', error);
-  }
+ 
 }
 
 tellMeVip(process.argv[2]);
