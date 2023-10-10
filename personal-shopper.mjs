@@ -24,7 +24,7 @@ async function manageShoppingList(filePath, command, elem, num = 1) {
     switch (command) {
         case 'add':
             if (!elem) {
-                console.error('Erreur : Aucun élément spécifié.');
+                console.error('Erreur : No elem specified..');
                 return;
             }
             shoppingList[elem] = (shoppingList[elem] || 0) + num;
@@ -32,11 +32,11 @@ async function manageShoppingList(filePath, command, elem, num = 1) {
 
         case 'rm':
             if (!elem) {
-                console.error('Erreur : Aucun élément spécifié.');
+                console.error('Erreur : No elem specified..');
                 return;
             }
             if (isNaN(num)) {
-                console.error('Erreur inattendue : rien n\'a été supprimé.');
+                console.error('Unexpected request: nothing has been removed');
                 return;
             }
             if (shoppingList[elem] !== undefined) {
@@ -54,7 +54,7 @@ async function manageShoppingList(filePath, command, elem, num = 1) {
 
         case 'ls':
             if (Object.keys(shoppingList).length === 0) {
-                console.log('Liste vide.');
+                console.log('Empty list.');
                 return;
             }
             Object.keys(shoppingList).forEach((item, index) => {
@@ -86,18 +86,18 @@ async function manageShoppingList(filePath, command, elem, num = 1) {
 
 // Récupérer les arguments de la ligne de commande
 // const args = process.argv.slice(2);
-const filePath = argv[2];
+const filePath = process.argv[2];
 
 // Vérifier s'il y a suffisamment d'arguments
-if (argv.length < 2) {
-    console.error('Erreur : Argument(s) manquant(s). Utilisez "help" pour voir la liste des commandes disponibles.');
+if (process.argv.length < 3) {
+    console.error('Erreur :No elem specified.');
     process.exit(1);
 }
 
 // Extraire la commande et les arguments
-const command = argv[3];
-const elem = argv[4];
-const num = parseInt(argv[5]);
+const command = process.argv[3];
+const elem = process.argv[4];
+const num = parseInt(process.argv[5]);
 
 // Gérer la liste de courses en fonction de la commande
 manageShoppingList(filePath, command, elem, num);
