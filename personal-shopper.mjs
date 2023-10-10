@@ -3,6 +3,8 @@ import { argv } from 'process';
 
 // Fonction pour lire le contenu du fichier JSON
 async function readShoppingList(filePath) {
+console.log(filePath)
+
     try {
         const fileData = await readFile(filePath, 'utf-8');
         return JSON.parse(fileData);
@@ -19,6 +21,8 @@ async function writeShoppingList(filePath, shoppingList) {
 
 // Fonction pour gérer les opérations d'ajout, de suppression et de listing
 async function manageShoppingList(filePath, command, elem, num = 1) {
+console.log(filePath)
+
     let shoppingList = await readShoppingList(filePath);
 
     switch (command) {
@@ -92,7 +96,8 @@ if (process.argv.length < 3) {
 }
 
 // Extraire la commande et les arguments
-const filePath = process.argv[1];
+const filePath = process.argv[2];
+console.log(filePath)
 const command = process.argv[3];
 const elem = process.argv[4];
 const num = parseInt(process.argv[5]);
