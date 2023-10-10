@@ -5,7 +5,7 @@ const personalShopper = (fileName, command, elem, quantity) => {
     const filePath = `./${fileName}`;
 
     // Create the file if it doesn't exist
-    if (!exists(filePath) && command === 'create') {
+    if (command === 'create') {
         writeFile(filePath, '{}');
     }
 
