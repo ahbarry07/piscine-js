@@ -4,7 +4,6 @@
 
 ![Status](https://img.shields.io/badge/status-succeeded-brightgreen)
 ![Language](https://img.shields.io/badge/language-JavaScript-F7DF1E?logo=javascript&logoColor=black)
-![Batch](https://img.shields.io/badge/batch-%2395-blue)
 ![Period](https://img.shields.io/badge/period-Sep%202023%20–%20Oct%202023-lightgrey)
 
 ---
